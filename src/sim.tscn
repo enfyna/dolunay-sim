@@ -1,0 +1,73 @@
+[gd_scene load_steps=9 format=3 uid="uid://4fvsdl7vq8m0"]
+
+[ext_resource type="Script" path="res://src/main.gd" id="1_63r7c"]
+[ext_resource type="PackedScene" uid="uid://c8yb00mpkgt3q" path="res://src/havuz/havuz.tscn" id="2_j7pvs"]
+[ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/arac.tscn" id="3_xhhib"]
+
+[sub_resource type="Gradient" id="Gradient_10678"]
+offsets = PackedFloat32Array(0, 0.827225)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_lgl1m"]
+gradient = SubResource("Gradient_10678")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_c2euf"]
+sky_top_color = Color(0.396078, 0.760784, 0.807843, 1)
+ground_bottom_color = Color(0.0705882, 0.054902, 0.0392157, 1)
+
+[sub_resource type="Sky" id="Sky_y6ls1"]
+sky_material = SubResource("ProceduralSkyMaterial_c2euf")
+
+[sub_resource type="Environment" id="Environment_0e5yg"]
+sky = SubResource("Sky_y6ls1")
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("arac", "viewport_1", "viewport_2")]
+script = ExtResource("1_63r7c")
+arac = NodePath("arac")
+viewport_1 = NodePath("SubViewportContainer/SubViewport")
+viewport_2 = NodePath("SubViewportContainer2/SubViewport")
+
+[node name="Havuz" parent="." instance=ExtResource("2_j7pvs")]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0e5yg")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.963195, -0.19655, 0.183365, -0.0659445, 0.488527, 0.870053, -0.260588, -0.850123, 0.457586, 3.73773, 0, 0)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+directional_shadow_blend_splits = true
+sky_mode = 1
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.369573, -0.400283, 0.838564, -0.00221388, 0.902833, 0.429985, -0.929199, 0.157055, -0.334549, 6.84753, 0, -3.7979)
+current = true
+
+[node name="arac" parent="." instance=ExtResource("3_xhhib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.60996, -2.91669)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 192.0
+offset_bottom = 192.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(192, 192)
+render_target_update_mode = 4
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+offset_top = 168.0
+offset_right = 192.0
+offset_bottom = 360.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(192, 192)
+render_target_update_mode = 4
