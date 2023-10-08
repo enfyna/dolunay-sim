@@ -3,4 +3,5 @@
 
 # 
 *.import
+*.jpg
 venv/

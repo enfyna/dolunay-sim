@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://blqaog61dmcx8"]
 
-[ext_resource type="Script" path="res://src/arac/arac.gd" id="1_qj52e"]
+[ext_resource type="Script" path="res://src/arac/Dolunay.cs" id="1_ipq0c"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt4be"]
 albedo_color = Color(0, 0, 0, 1)
@@ -16,15 +16,15 @@ rings = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_v6m8b"]
 size = Vector3(0.2, 0.2, 0.6)
 
-[node name="arac" type="RigidBody3D" node_paths=PackedStringArray("FrontCam", "BottomCam")]
+[node name="Arac" type="RigidBody3D" node_paths=PackedStringArray("FrontCam", "BottomCam")]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 mass = 10.0
 inertia = Vector3(0, 2, 0)
-gravity_scale = 0.7
+gravity_scale = -0.7
 linear_damp = 10.0
 angular_damp = 10.0
-script = ExtResource("1_qj52e")
+script = ExtResource("1_ipq0c")
 FrontCam = NodePath("Front_Camera3D")
 BottomCam = NodePath("Bottom_Camera3D")
 

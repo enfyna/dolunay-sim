@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://4fvsdl7vq8m0"]
 
-[ext_resource type="Script" path="res://src/main.gd" id="1_63r7c"]
+[ext_resource type="Script" path="res://src/Main.cs" id="1_doqqe"]
 [ext_resource type="PackedScene" uid="uid://c8yb00mpkgt3q" path="res://src/havuz/havuz.tscn" id="2_j7pvs"]
 [ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/arac.tscn" id="3_xhhib"]
 
@@ -25,9 +25,9 @@ ssao_enabled = true
 ssil_enabled = true
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("arac", "viewport_1", "viewport_2")]
-script = ExtResource("1_63r7c")
-arac = NodePath("arac")
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("Arac", "viewport_1", "viewport_2")]
+script = ExtResource("1_doqqe")
+Arac = NodePath("Arac")
 viewport_1 = NodePath("SubViewportContainer/SubViewport")
 viewport_2 = NodePath("SubViewportContainer2/SubViewport")
 
@@ -48,8 +48,9 @@ sky_mode = 1
 transform = Transform3D(-0.369573, -0.400283, 0.838564, -0.00221388, 0.902833, 0.429985, -0.929199, 0.157055, -0.334549, 6.84753, 0, -3.7979)
 current = true
 
-[node name="arac" parent="." instance=ExtResource("3_xhhib")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.60996, -2.91669)
+[node name="Arac" parent="." instance=ExtResource("3_xhhib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.29303, -3.01713)
+gravity_scale = -0.3
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 offset_right = 192.0
