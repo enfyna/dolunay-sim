@@ -1,7 +1,8 @@
 # Godot 4+ specific ignores
 .godot/
-
-# 
+.gdignore
 *.import
-*.jpg
+__pycache__
+# 
 venv/
+frames/

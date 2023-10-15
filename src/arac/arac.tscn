@@ -1,6 +1,15 @@
-[gd_scene load_steps=5 format=3 uid="uid://blqaog61dmcx8"]
+[gd_scene load_steps=7 format=3 uid="uid://blqaog61dmcx8"]
 
 [ext_resource type="Script" path="res://src/arac/Dolunay.cs" id="1_ipq0c"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lyd0w"]
+shading_mode = 0
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_mof64"]
+material = SubResource("StandardMaterial3D_lyd0w")
+radius = 0.3
+height = 0.6
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt4be"]
 albedo_color = Color(0, 0, 0, 1)
@@ -16,17 +25,25 @@ rings = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_v6m8b"]
 size = Vector3(0.2, 0.2, 0.6)
 
-[node name="Arac" type="RigidBody3D" node_paths=PackedStringArray("FrontCam", "BottomCam")]
+[node name="Arac" type="RigidBody3D" node_paths=PackedStringArray("FrontView", "BottomView", "FrontCamPos", "BottomCamPos", "FrontCam", "BottomCam")]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 mass = 10.0
 inertia = Vector3(0, 2, 0)
-gravity_scale = -0.7
+gravity_scale = 0.0
 linear_damp = 10.0
 angular_damp = 10.0
 script = ExtResource("1_ipq0c")
-FrontCam = NodePath("Front_Camera3D")
-BottomCam = NodePath("Bottom_Camera3D")
+FrontView = NodePath("SubViewportContainer/SubViewport")
+BottomView = NodePath("SubViewportContainer2/SubViewport")
+FrontCamPos = NodePath("Front_Camera_Pos")
+BottomCamPos = NodePath("Bottom_Camera_Pos")
+FrontCam = NodePath("SubViewportContainer/SubViewport/Front_Camera3D")
+BottomCam = NodePath("SubViewportContainer2/SubViewport/Bottom_Camera3D")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91133, 0, 2.5)
+mesh = SubResource("SphereMesh_mof64")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
@@ -36,8 +53,35 @@ skeleton = NodePath("../CollisionShape3D")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("BoxShape3D_v6m8b")
 
-[node name="Bottom_Camera3D" type="Marker3D" parent="."]
+[node name="Front_Camera_Pos" type="Marker3D" parent="."]
+transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, -8.74228e-08, 1, -3.34075e-22, 3.82137e-15, 0, -1, 0, -0.00280701, 0.305863)
+
+[node name="Bottom_Camera_Pos" type="Marker3D" parent="."]
 transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, 0, -0.236145, 0)
 
-[node name="Front_Camera3D" type="Marker3D" parent="."]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_right = 192.0
+offset_bottom = 192.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(192, 192)
+render_target_update_mode = 4
+
+[node name="Front_Camera3D" type="Camera3D" parent="SubViewportContainer/SubViewport"]
 transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, -8.74228e-08, 1, -3.34075e-22, 3.82137e-15, 0, -1, 0, -0.00280701, 0.305863)
+
+[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
+offset_top = 168.0
+offset_right = 192.0
+offset_bottom = 360.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
+handle_input_locally = false
+size = Vector2i(192, 192)
+render_target_update_mode = 4
+
+[node name="Bottom_Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport"]
+transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, 0, -0.236145, 0)

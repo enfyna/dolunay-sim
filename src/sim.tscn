@@ -25,16 +25,18 @@ ssao_enabled = true
 ssil_enabled = true
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
 
-[node name="Node3D" type="Node3D" node_paths=PackedStringArray("Arac", "viewport_1", "viewport_2")]
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("Arac")]
 script = ExtResource("1_doqqe")
 Arac = NodePath("Arac")
-viewport_1 = NodePath("SubViewportContainer/SubViewport")
-viewport_2 = NodePath("SubViewportContainer2/SubViewport")
 
 [node name="Havuz" parent="." instance=ExtResource("2_j7pvs")]
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_0e5yg")
+[node name="Arac" parent="." instance=ExtResource("3_xhhib")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.29303, -0.0171299)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.369573, -0.400283, 0.838564, -0.00221388, 0.902833, 0.429986, -0.929199, 0.157055, -0.334549, 6.84753, 0, -3.7979)
+current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.963195, -0.19655, 0.183365, -0.0659445, 0.488527, 0.870053, -0.260588, -0.850123, 0.457586, 3.73773, 0, 0)
@@ -44,31 +46,5 @@ shadow_reverse_cull_face = true
 directional_shadow_blend_splits = true
 sky_mode = 1
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.369573, -0.400283, 0.838564, -0.00221388, 0.902833, 0.429985, -0.929199, 0.157055, -0.334549, 6.84753, 0, -3.7979)
-current = true
-
-[node name="Arac" parent="." instance=ExtResource("3_xhhib")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.29303, -3.01713)
-gravity_scale = -0.3
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-offset_right = 192.0
-offset_bottom = 192.0
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-size = Vector2i(192, 192)
-render_target_update_mode = 4
-
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="."]
-offset_top = 168.0
-offset_right = 192.0
-offset_bottom = 360.0
-stretch = true
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer2"]
-handle_input_locally = false
-size = Vector2i(192, 192)
-render_target_update_mode = 4
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_0e5yg")

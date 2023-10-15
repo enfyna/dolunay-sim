@@ -1,28 +1,56 @@
 using Godot;
+using System;
 
 public partial class Dolunay : RigidBody3D
 {
 	[Export]
-    public Node3D FrontCam;
+    public SubViewport FrontView;
 
     [Export]
-    public Node3D BottomCam;
+    public SubViewport BottomView;
 
-	private const short SP = 100; // #SERVO_POWER
+	[Export]
+    private Marker3D FrontCamPos;
+
+    [Export]
+    private Marker3D BottomCamPos;
+
+	[Export]
+    private Camera3D FrontCam;
+
+    [Export]
+    private Camera3D BottomCam;
+
+	private const float SP = 0.01f;
+
+	public float x = 0;
+	public float y = 0;
+	public float z = 0;
+	public float r = 0;
 
 	public override void _Process(double delta) {
+		FrontCam.GlobalTransform = FrontCamPos.GlobalTransform;
+		BottomCam.GlobalTransform = BottomCamPos.GlobalTransform;
 
-        float x = Input.IsActionPressed("ui_left") ? 1 : Input.IsActionPressed("ui_right") ? -1 : 0;
-		float y = Input.IsActionPressed("throttle") ? 1 : Input.IsActionPressed("brake") ? -1 : 0;
-		float z = Input.IsActionPressed("ui_up") ? 1 : Input.IsActionPressed("ui_down") ? -1 : 0;
-		float r = Input.IsActionPressed("r_left") ? 1 : Input.IsActionPressed("r_right") ? -1 : 0;
-		
 		ApplyForce(GlobalTransform.Basis.X * x *SP);
 
 		ApplyForce(GlobalTransform.Basis.Y * y * SP);
 
 		ApplyForce(GlobalTransform.Basis.Z * z * SP);
 
-		ApplyForce(GlobalTransform.Basis.X * r * SP / 10, GlobalTransform.Basis.Z + GlobalTransform.Basis.X);
+		ApplyForce(GlobalTransform.Basis.X * r * SP, GlobalTransform.Basis.Z + GlobalTransform.Basis.X);
+	}
+
+	public void HareketEt(int x = 0, int y = 0, int z = 500, int r = 0){
+		this.x = x;
+		this.y = y;
+		this.r = r;
+
+        Math.Min(Math.Max(this.x, -1000), 1000);
+        Math.Min(Math.Max(this.y, -1000), 1000);
+        Math.Min(Math.Max(this.r, -1000), 1000);
+
+		this.z = z - 500;
+        Math.Min(Math.Max(this.z, -500), 500);
 	}
 }
