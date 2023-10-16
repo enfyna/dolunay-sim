@@ -1,5 +1,8 @@
 using Godot;
+using Godot.Collections;
 using System;
+using System.Text;
+using System.Threading.Tasks;
 
 public partial class Dolunay : RigidBody3D
 {
@@ -32,7 +35,7 @@ public partial class Dolunay : RigidBody3D
 		FrontCam.GlobalTransform = FrontCamPos.GlobalTransform;
 		BottomCam.GlobalTransform = BottomCamPos.GlobalTransform;
 
-		ApplyForce(GlobalTransform.Basis.X * x *SP);
+		ApplyForce(GlobalTransform.Basis.X * x * SP);
 
 		ApplyForce(GlobalTransform.Basis.Y * y * SP);
 
@@ -50,7 +53,31 @@ public partial class Dolunay : RigidBody3D
         Math.Min(Math.Max(this.y, -1000), 1000);
         Math.Min(Math.Max(this.r, -1000), 1000);
 
-		this.z = z - 500;
-        Math.Min(Math.Max(this.z, -500), 500);
+		this.z = (z - 500) * 2;
+        Math.Min(Math.Max(this.z, -1000), 1000);
+	}
+
+	private Dictionary<string, string> dict = new();
+	public async Task<byte[]> GetData(){
+		await ToSignal(GetTree(), "process_frame");
+
+		Image cam1 = FrontView.GetTexture().GetImage();
+		Image cam2 = BottomView.GetTexture().GetImage();
+
+		byte[] imageData = cam1.SavePngToBuffer();
+		byte[] image2Data = cam2.SavePngToBuffer();
+		
+		string imageDataBase64 = Convert.ToBase64String(imageData);
+		string image2DataBase64 = Convert.ToBase64String(image2Data);
+
+		dict.Add("cam_1", imageDataBase64);
+		dict.Add("cam_2", image2DataBase64);
+
+		string dict_to_str = Json.Stringify(dict);
+		byte[] bytes = Encoding.ASCII.GetBytes(dict_to_str);
+
+		dict.Clear();
+
+		return bytes;
 	}
 }

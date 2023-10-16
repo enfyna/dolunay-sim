@@ -42,7 +42,7 @@ FrontCam = NodePath("SubViewportContainer/SubViewport/Front_Camera3D")
 BottomCam = NodePath("SubViewportContainer2/SubViewport/Bottom_Camera3D")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.91133, 0, 2.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 2.5)
 mesh = SubResource("SphereMesh_mof64")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -85,3 +85,15 @@ render_target_update_mode = 4
 
 [node name="Bottom_Camera3D" type="Camera3D" parent="SubViewportContainer2/SubViewport"]
 transform = Transform3D(-1, -8.74228e-08, -3.82137e-15, 0, -4.37114e-08, 1, -8.74228e-08, 1, 4.37114e-08, 0, -0.236145, 0)
+
+[node name="RightDistance" type="RayCast3D" parent="."]
+transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -0.2, 0, 0)
+target_position = Vector3(0, 25, 0)
+
+[node name="Depth" type="RayCast3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
+target_position = Vector3(0, 25, 0)
+
+[node name="LeftDistance" type="RayCast3D" parent="."]
+transform = Transform3D(1.31134e-07, 1, 0, -1, 1.31134e-07, 0, 0, 0, 1, 0.2, 0, 0)
+target_position = Vector3(0, 25, 0)
