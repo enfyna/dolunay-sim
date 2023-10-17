@@ -16,6 +16,10 @@ config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 run/max_fps=60
 config/icon="res://src/icon.svg"
 
+[debug]
+
+settings/stdout/verbose_stdout=true
+
 [display]
 
 window/size/viewport_width=720
