@@ -1,4 +1,4 @@
-from Server import TCPServer
+from Client import SimClient
 from time import sleep
 import threading
 
@@ -7,11 +7,17 @@ class Dolunay():
     SUCCESS = 0
     ERROR_OUT_OF_LOOP = 1
 
-    current_arm_state : str = 'DISARMED' 
-
     state : dict = {
         'is_armed' : 0,
         'inputs' : [0, 0, 500, 0],
+    }
+
+    sim_data : dict = {
+        'cam_1':'',
+        'cam_2':'',
+        'right_distance':'',
+        'left_distance':'',
+        'depth':'',
     }
 
     # Bu özellik simulasyona eklenmediği için
@@ -20,8 +26,9 @@ class Dolunay():
     current_mode : str = 'ACRO'
 
     def __init__(self):
-        self.connection = TCPServer('127.0.0.1', 12345)
-        self.connection.start()
+        self.connection = SimClient()
+        self.sim_data = self.connection.recv()
+        print(self.sim_data)
 
     def hareket_et(self, x, y, z, r, t = 1, i = 1) -> int:
         """
@@ -33,19 +40,22 @@ class Dolunay():
         i- her komut arası beklenecek olan sure
         """
         self.state['inputs'] = [x, y, z, r]
+
         self.connection.SendData(self.state)
+        self.sim_data = self.connection.recv()
         return self.SUCCESS
 
     def set_arm(self, arm : bool = True, max_try : int = 7) -> int:
+        if arm == self.state['is_armed']:
+            return self.SUCCESS
         print(f"-> {'ARMED' if arm else 'DISARMED'}")
-        self.current_arm_state = 'ARMED' if arm else 'DISARMED'
         self.state['is_armed'] = 1 if arm else 0
         return self.SUCCESS
 
     def get_mod(self) -> dict:
         data = {
             "mode": self.current_mode,
-            "arm": self.current_arm_state
+            "arm": 'ARM' if self.state['is_armed'] else 'DISARM'
         }
         return data
 
@@ -53,7 +63,9 @@ class Dolunay():
         """
         Simulasyon ile olan bağlantıyı kapatır.
         """
-        self.connection.stop()
+        self.set_arm(False)
+
+        self.connection.close()
 
     # Bu özellikler simulasyona eklenmediği için şimdilik birşey yapmıyor
     def set_mod(self, mode : str = 'ALT_HOLD', max_try : int = 7) -> int:
