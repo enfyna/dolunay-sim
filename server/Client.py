@@ -80,48 +80,57 @@ def TurnToRed(cap) -> int:
 
 	cv2.imshow('cont',dispframe)
 	# cisimle kameranın orta noktasındaki farkı gönder
-	return int((cx - window_x_half) * 10)
+	return int((window_x_half - cx) * 10)
 
-server_ip = "127.0.0.1"
-server_port = 12345
+class SimClient():
 
-client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect((server_ip, server_port))
-print('connected')
+	server_ip = "127.0.0.1"
+	server_port = 12345
 
-try:
-    buffer : str = ''
-    loop : int = 0
-    while True:
-        print(f"Loop : {loop}")
-        loop+=1
-        try:
-            recv = client_socket.recv(1024*2)
-        except:
-            sleep(0.1)
-            continue
-        recv = recv.decode('ASCII')
-        buffer += recv
-        try:
-            data : dict = json.loads(f"{{{buffer.split('{')[1].split('}')[0]}}}")
-            print(data.keys())
-            buffer = ''
+	def __init__(self):
+		self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+		self.client_socket.connect((self.server_ip, self.server_port))
+		print('Connected')
 
-            r = DrawImages(data)
+	def recv(self):
+		buffer : str = ''
+		while True:
+			try:
+				recv = self.client_socket.recv(1024)
+			except:
+				sleep(0.05)
+				continue
+			recv = recv.decode('ASCII')
+			buffer += recv
+			try:
+				data : dict = json.loads(f"{{{buffer.split('{')[1].split('}')[0]}}}")
+				buffer = ''
 
-            data_to_send : dict = {
-                'is_armed' : 1,
-                'inputs' : [0, 0, 500, r],
-            }
-            data_to_send = json.dumps(data_to_send)
-            client_socket.send(data_to_send.encode('ASCII'))
-        except:
-            print(f"Received buffer from Godot")
-            continue
+				if 'cam_1' in data.keys():
+					im_bytes = base64.b64decode(data['cam_1'])
+					im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
+					data['cam_1'] = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
+				
+				if 'cam_2' in data.keys():
+					im_bytes = base64.b64decode(data['cam_2'])
+					im_arr = np.frombuffer(im_bytes, dtype=np.uint8)
+					data['cam_2'] = cv2.imdecode(im_arr, flags=cv2.IMREAD_COLOR)
 
-        print(f'Received data : {data.keys()}')
-        
-except Exception as e:
-    print(e)
-client_socket.close()
+				print(f'Received data : {data.keys()}')
+				return data
+			except:
+				print(f"Received buffer from Godot")
+				continue				
+
+	def SendData(self, data : dict):
+		# data_to_send : dict = {
+		# 	'is_armed' : 1,
+		# 	'inputs' : [0, 0, 500, r],
+		# }
+		data_to_send = json.dumps(data)
+		self.client_socket.send(data_to_send.encode('ASCII'))
+		return
+
+	def close(self):
+		self.client_socket.close()
 
