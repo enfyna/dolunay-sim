@@ -30,6 +30,7 @@ script = ExtResource("1_doqqe")
 Arac = NodePath("Arac")
 
 [node name="Havuz" parent="." instance=ExtResource("2_j7pvs")]
+transform = Transform3D(1.4, 0, 0, 0, 1.4, 0, 0, 0, 1.4, 0, 0, 0)
 
 [node name="Arac" parent="." instance=ExtResource("3_xhhib")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.29303, -0.0171299)

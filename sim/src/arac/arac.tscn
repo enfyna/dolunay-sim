@@ -26,7 +26,7 @@ rings = 1
 [sub_resource type="BoxShape3D" id="BoxShape3D_v6m8b"]
 size = Vector3(0.2, 0.2, 0.6)
 
-[node name="Arac" type="RigidBody3D" node_paths=PackedStringArray("FrontView", "BottomView", "FrontCamPos", "BottomCamPos", "FrontCam", "BottomCam")]
+[node name="Arac" type="RigidBody3D" node_paths=PackedStringArray("FrontView", "BottomView", "DepthSensor", "RightDistance", "LeftDistance", "FrontCamPos", "BottomCamPos", "FrontCam", "BottomCam")]
 axis_lock_angular_x = true
 axis_lock_angular_z = true
 mass = 10.0
@@ -37,6 +37,9 @@ angular_damp = 10.0
 script = ExtResource("1_ipq0c")
 FrontView = NodePath("SubViewportContainer/SubViewport")
 BottomView = NodePath("SubViewportContainer2/SubViewport")
+DepthSensor = NodePath("Depth")
+RightDistance = NodePath("RightDistance")
+LeftDistance = NodePath("LeftDistance")
 FrontCamPos = NodePath("Front_Camera_Pos")
 BottomCamPos = NodePath("Bottom_Camera_Pos")
 FrontCam = NodePath("SubViewportContainer/SubViewport/Front_Camera3D")
