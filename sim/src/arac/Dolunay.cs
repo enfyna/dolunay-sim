@@ -12,6 +12,15 @@ public partial class Dolunay : RigidBody3D
     [Export]
     public SubViewport BottomView;
 
+    [Export]
+    public RayCast3D DepthSensor;
+    
+	[Export]
+    public RayCast3D RightDistance;
+    
+	[Export]
+    public RayCast3D LeftDistance;
+
 	[Export]
     private Marker3D FrontCamPos;
 
@@ -26,10 +35,10 @@ public partial class Dolunay : RigidBody3D
 
 	private const float SP = 0.01f;
 
-	public float x = 0;
-	public float y = 0;
-	public float z = 0;
-	public float r = 0;
+	private float x = 0;
+	private float y = 0;
+	private float z = 0;
+	private float r = 0;
 
 	public override void _Process(double delta) {
 		FrontCam.GlobalTransform = FrontCamPos.GlobalTransform;
@@ -72,6 +81,20 @@ public partial class Dolunay : RigidBody3D
 
 		dict.Add("cam_1", imageDataBase64);
 		dict.Add("cam_2", image2DataBase64);
+
+		Vector3 origin = GlobalTransform.Origin;
+
+		Vector3 right_point = RightDistance.GetCollisionPoint();
+		Vector3 left_point = LeftDistance.GetCollisionPoint();
+		Vector3 top_point = DepthSensor.GetCollisionPoint();
+
+		double right_distance = origin.DistanceTo(right_point);
+		double left_distance = origin.DistanceTo(left_point);
+		double depth = origin.DistanceTo(top_point);
+
+		dict.Add("right_distance", right_distance.ToString());
+		dict.Add("left_distance", left_distance.ToString());
+		dict.Add("depth", depth.ToString());
 
 		string dict_to_str = Json.Stringify(dict);
 		byte[] bytes = Encoding.ASCII.GetBytes(dict_to_str);
