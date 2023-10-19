@@ -1,6 +1,5 @@
 from Client import SimClient
 from time import sleep
-import threading
 
 class Dolunay():
     
@@ -15,9 +14,12 @@ class Dolunay():
     sim_data : dict = {
         'cam_1':'',
         'cam_2':'',
-        'right_distance':'',
-        'left_distance':'',
-        'depth':'',
+        'right_distance': 0,
+        'left_distance': 0,
+        'depth': 0,
+        'yaw': 0,
+        'roll': 0,
+        'pitch': 0,
     }
 
     # Bu özellik simulasyona eklenmediği için
@@ -59,6 +61,41 @@ class Dolunay():
         }
         return data
 
+    def getData(self) -> dict:
+        lines = {}
+        lines.update(self.get_attitude())
+        lines.update(self.get_pressure())
+        lines.update(self.get_motors())
+        lines.update(self.get_mod())
+        return lines
+
+    def get_attitude(self) -> dict:
+        data = {
+            "yaw": self.state['yaw'],
+            "roll": self.state['roll'],
+            "pitch": self.state['pitch']
+        }
+        return data
+
+    def get_pressure(self) -> dict:
+        data = {
+            'pressure': self.state['depth']
+        }
+        return data
+
+    def get_motors(self) -> dict:
+        """
+        !!! Simulasyonda bu özellik olmadığı 
+        için şimdilik 1500 değeri gönderiyor
+        """
+        data = {
+            "servo1":1500 ,"servo2":1500 ,
+            "servo3":1500 ,"servo4":1500 ,
+            "servo5":1500 ,"servo6":1500 ,
+            "servo7":1500 ,"servo8":1500 
+        }
+        return data
+
     def kapat(self) -> None:
         """
         Simulasyon ile olan bağlantıyı kapatır.
@@ -70,127 +107,3 @@ class Dolunay():
     # Bu özellikler simulasyona eklenmediği için şimdilik birşey yapmıyor
     def set_mod(self, mode : str = 'ALT_HOLD', max_try : int = 7) -> int:
         ...
-
-""" 
-# from pymavlink import mavutil
-# from DistanceSensor import Distance
-
-class Dolunay():
-
-    SUCCESS = 0
-    ERROR_OUT_OF_LOOP = 1
-
-    def __init__(self):
-        #Araca baglanmak için sırasıyla USB->SITL portlarını dene
-        from sys import platform
-
-        OS = platform.lower()
-        print(f"İsletim Sistemi : {OS}")
-
-        if OS == "linux":
-            port = '/dev/ttyACM'
-        elif OS == "win32":
-            port = 'COM'
-        else:
-            raise Exception("Bilinmeyen isletim sistemi ?")
-
-        for idx in range(21):
-            try:
-                master = mavutil.mavlink_connection(f'{port}{idx}')
-                master.wait_heartbeat(blocking=False)
-                print("USB ile baglanti kuruldu.")
-                break
-            except:
-                continue
-        else:
-            port = 'udp:127.0.0.1:14550'
-            master = mavutil.mavlink_connection(port)
-            master.wait_heartbeat(timeout = 3)
-            if master.mav_count > 0:
-                # sitl ile baglandiysak heartbeat mesajını almış olmamız gerek
-                # heartbeat mesajı aldık isek 'mav_count' 0'dan buyuk olmalı
-                print("SITL ile baglanti kuruldu.")
-            else:
-                raise Exception(
-                    "Arac ile baglanti kurulamadi."
-                    "Port bilgisinde hata var yada kablo duzgun takilmamis olabilir."
-                )
-
-        self.master = master
-
-        self.mode_map = self.master.mode_mapping()
-        self.mode_map_keys = tuple(self.mode_map.keys())
-        self.mode_map_values = tuple(self.mode_map.values())
-
-        hb = self.master.wait_heartbeat(blocking=True)
-
-        if hb.base_mode & mavutil.mavlink.MAV_MODE_FLAG_SAFETY_ARMED:
-            self.current_arm_state = 'ARM'
-        else:
-            self.current_arm_state = 'DISARM'
-
-        self.current_mode = self.mode_map_keys[self.mode_map_values.index(hb.custom_mode)]
-        self.Distance = Distance()
-        return
-
-    def getData(self) -> dict:
-        lines = {}
-        lines.update(self.get_attitude())
-        lines.update(self.get_pressure())
-        lines.update(self.get_motors())
-        lines.update(self.get_mod())
-        return lines
-
-    def get_attitude(self) -> dict:
-        self.master.mav.command_long_send(
-            self.master.target_system, self.master.target_component,
-            mavutil.mavlink.MAV_CMD_REQUEST_MESSAGE,
-            0,
-            30,0,0,0,0,0,0)
-        attitude = self.master.recv_match(type='ATTITUDE', blocking=True)
-        data = {
-            "yaw": attitude.yaw,
-            "roll": attitude.roll,
-            "pitch": attitude.pitch
-        }
-        return data
-
-    def get_pressure(self) -> dict:
-        self.master.mav.command_long_send(
-            self.master.target_system,self.master.target_component,
-            mavutil.mavlink.MAV_CMD_REQUEST_MESSAGE,0,
-            29,0,0,0,0,0,0)
-        pressure = self.master.recv_match(type='SCALED_PRESSURE', blocking=True)
-        pressure_abs = pressure.press_abs #hPa
-        pressure_diff = pressure.press_diff #hPa
-        temperature = pressure.temperature
-        #Depth (meters) = (Differential Pressure (hPa)) / (Density (kg/m³) * Gravity (m/s²) * 100)
-        #In this formula, 100 is used to convert hPa to Pa because 1 hPa = 100 Pa.
-        p = 1000.0
-        g = 9.83
-        depth = pressure_diff/(p*g*100)
-        data = {
-            "pressure": depth
-        }
-        return data
-
-    def get_motors(self) -> dict:
-        self.master.mav.command_long_send(
-            self.master.target_system,self.master.target_component,
-            mavutil.mavlink.MAV_CMD_REQUEST_MESSAGE,
-            0,
-            36,0,0,0,0,0,0)
-        engine = self.master.recv_match(type='SERVO_OUTPUT_RAW', blocking=True)
-        # The SERVO_OUTPUT_RAW message contains data for 8 servo/engine outputs
-        # You can access the data for each output using the following indices:
-        # engine.servo1_raw, engine.servo2_raw, engine.servo3_raw, engine.servo4_raw
-        # engine.servo5_raw, engine.servo6_raw, engine.servo7_raw, engine.servo8_raw
-        data = {
-            "servo1":engine.servo1_raw,"servo2":engine.servo2_raw,
-            "servo3":engine.servo3_raw,"servo4":engine.servo4_raw,
-            "servo5":engine.servo5_raw,"servo6":engine.servo6_raw,
-            "servo7":engine.servo7_raw,"servo8":engine.servo8_raw
-        }
-        return data
-
- """
