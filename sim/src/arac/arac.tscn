@@ -45,6 +45,10 @@ BottomCamPos = NodePath("Bottom_Camera_Pos")
 FrontCam = NodePath("SubViewportContainer/SubViewport/Front_Camera3D")
 BottomCam = NodePath("SubViewportContainer2/SubViewport/Bottom_Camera3D")
 
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.929776, -0.0480499, 0.364976, -2.74275e-09, 0.991445, 0.130526, -0.368125, 0.12136, -0.921822, 0.586, 1.01, -1.615)
+current = true
+
 [node name="TestBall" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 2.5)
 visible = false

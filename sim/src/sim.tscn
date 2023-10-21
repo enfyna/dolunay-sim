@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://4fvsdl7vq8m0"]
+[gd_scene load_steps=12 format=3 uid="uid://4fvsdl7vq8m0"]
 
 [ext_resource type="Script" path="res://src/Main.cs" id="1_doqqe"]
 [ext_resource type="PackedScene" uid="uid://c8yb00mpkgt3q" path="res://src/havuz/havuz.tscn" id="2_j7pvs"]
 [ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/arac.tscn" id="3_xhhib"]
+[ext_resource type="Script" path="res://src/RedCircle.cs" id="4_mehhx"]
 
 [sub_resource type="Gradient" id="Gradient_10678"]
 offsets = PackedFloat32Array(0, 0.827225)
@@ -27,7 +28,7 @@ ssil_enabled = true
 fog_light_color = Color(0, 0.27451, 0.329412, 1)
 fog_density = 0.02
 volumetric_fog_enabled = true
-volumetric_fog_density = 0.2
+volumetric_fog_density = 0.15
 volumetric_fog_albedo = Color(0, 0.313726, 0.313726, 1)
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
 
@@ -49,10 +50,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 [node name="Arac" parent="." instance=ExtResource("3_xhhib")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3178, 8.46631, -11.244)
 
-[node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.929776, 0.0480499, -0.364975, 0, 0.991445, 0.130526, 0.368125, -0.12136, 0.921822, 10.613, 8.215, 4.462)
-current = true
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.609634, 0.15812, 0.776753, -0.734108, 0.482304, 0.477984, -0.299052, -0.861615, 0.410106, 14.1148, 13.4122, 0)
 shadow_enabled = true
@@ -67,3 +64,4 @@ environment = SubResource("Environment_0e5yg")
 [node name="RedCircle" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.97832, 6.00363, 0)
 mesh = SubResource("SphereMesh_5ugp0")
+script = ExtResource("4_mehhx")

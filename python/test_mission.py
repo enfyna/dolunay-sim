@@ -29,7 +29,7 @@ class M1():
 		cy = int(res['m01'] / res['m00'])
 		# Secilen c'nin momentinden merkezini hesapla
 		self.state = 1
-		return 750, 0, 500, int(front_img.shape[1] // 2  - cx) * 10
+		return 1000, 0, 500, int(front_img.shape[1] // 2  - cx) * 10
 
 	def FindRedFromImage(self, image):
 		frame = cv2.resize(image, (200, 150))

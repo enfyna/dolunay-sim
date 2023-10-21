@@ -54,8 +54,8 @@ public partial class Dolunay : RigidBody3D
 	}
 
 	public void HareketEt(int x = 0, int y = 0, int z = 500, int r = 0){
-        this.x = Math.Min(Math.Max(x, -1000), 1000) * 10;
-        this.y = Math.Min(Math.Max(y, -1000), 1000) * 10;
+        this.x = Math.Min(Math.Max(x, -1000), 1000) * 25;
+        this.y = Math.Min(Math.Max(y, -1000), 1000) * 25;
         this.r = Math.Min(Math.Max(r, -1000), 1000) * 2;
 
 		this.z = (z - 500) * 2;
