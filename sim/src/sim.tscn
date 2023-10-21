@@ -18,6 +18,7 @@ ground_bottom_color = Color(0.0705882, 0.054902, 0.0392157, 1)
 sky_material = SubResource("ProceduralSkyMaterial_c2euf")
 
 [sub_resource type="Environment" id="Environment_0e5yg"]
+background_mode = 2
 sky = SubResource("Sky_y6ls1")
 tonemap_mode = 2
 ssr_enabled = true
@@ -26,6 +27,7 @@ ssil_enabled = true
 fog_light_color = Color(0, 0.27451, 0.329412, 1)
 fog_density = 0.02
 volumetric_fog_enabled = true
+volumetric_fog_density = 0.2
 volumetric_fog_albedo = Color(0, 0.313726, 0.313726, 1)
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
 
@@ -48,11 +50,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3178, 8.46631, -11.244)
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.369573, -0.400283, 0.838564, -0.00221388, 0.902833, 0.429986, -0.929199, 0.157055, -0.334549, 28.618, 15.99, -11.938)
+transform = Transform3D(0.929776, 0.0480499, -0.364975, 0, 0.991445, 0.130526, 0.368125, -0.12136, 0.921822, 10.613, 8.215, 4.462)
 current = true
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.963195, -0.19655, 0.183365, -0.0659445, 0.488527, 0.870053, -0.260588, -0.850123, 0.457586, 3.73773, 0, 0)
+transform = Transform3D(0.609634, 0.15812, 0.776753, -0.734108, 0.482304, 0.477984, -0.299052, -0.861615, 0.410106, 14.1148, 13.4122, 0)
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_reverse_cull_face = true
@@ -62,6 +64,6 @@ sky_mode = 1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0e5yg")
 
-[node name="Red" type="MeshInstance3D" parent="."]
+[node name="RedCircle" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.97832, 6.00363, 0)
 mesh = SubResource("SphereMesh_5ugp0")

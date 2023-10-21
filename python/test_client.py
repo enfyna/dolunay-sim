@@ -13,9 +13,10 @@ try:
 	while True:
 		move = mission.FindRed(arac.sim_data['cam_1'], arac.sim_data['cam_2'])
 
+		data = arac.getData()
+		print(f"yaw: {data['yaw']} roll: {data['roll']} pitch: {data['pitch']}")
 		if move is not None:
-			print("move _>")
-			print(move)
+			print(f"move _> {move}")
 			arac.hareket_et(*move, 1, 0)
 		else:
 			arac.hareket_et(0, -1000, 500, 0, 1, 0)

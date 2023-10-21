@@ -19,12 +19,12 @@ albedo_color = Color(0, 0, 0, 1)
 material = SubResource("StandardMaterial3D_bt4be")
 top_radius = 0.1
 bottom_radius = 0.1
-height = 0.6
+height = 0.8
 radial_segments = 16
 rings = 1
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_v6m8b"]
-size = Vector3(0.2, 0.2, 0.6)
+size = Vector3(0.2, 0.2, 0.8)
 
 [node name="Arac" type="RigidBody3D" node_paths=PackedStringArray("FrontView", "BottomView", "DepthSensor", "RightDistance", "LeftDistance", "FrontCamPos", "BottomCamPos", "FrontCam", "BottomCam")]
 axis_lock_angular_x = true

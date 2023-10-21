@@ -54,12 +54,12 @@ public partial class Dolunay : RigidBody3D
 	}
 
 	public void HareketEt(int x = 0, int y = 0, int z = 500, int r = 0){
-        this.x = Math.Min(Math.Max(x, -1000), 1000) * 5;
-        this.y = Math.Min(Math.Max(y, -1000), 1000) * 5;
-        this.r = Math.Min(Math.Max(r, -1000), 1000) * 1;
+        this.x = Math.Min(Math.Max(x, -1000), 1000) * 10;
+        this.y = Math.Min(Math.Max(y, -1000), 1000) * 10;
+        this.r = Math.Min(Math.Max(r, -1000), 1000) * 2;
 
 		this.z = (z - 500) * 2;
-        this.z = Math.Min(Math.Max(this.z, -1000), 1000) * 5;
+        this.z = Math.Min(Math.Max(this.z, -1000), 1000) * 10;
 	}
 
 	private Dictionary<string, string> dict = new();
@@ -88,13 +88,13 @@ public partial class Dolunay : RigidBody3D
 		double left_distance = origin.DistanceTo(left_point);
 		double depth = origin.DistanceTo(top_point);
 
-		dict.Add("right_distance", right_distance.ToString());
-		dict.Add("left_distance", left_distance.ToString());
-		dict.Add("depth", depth.ToString());
+		dict.Add("right_distance", Math.Round(right_distance, 5).ToString());
+		dict.Add("left_distance", Math.Round(left_distance, 5).ToString());
+		dict.Add("depth", Math.Round(depth, 5).ToString());
 
-		dict.Add("pitch", GlobalRotation.X.ToString());
-		dict.Add("yaw", GlobalRotation.Y.ToString());
-		dict.Add("roll", GlobalRotation.Z.ToString());
+		dict.Add("pitch", Math.Round(GlobalRotation.X, 5).ToString());
+		dict.Add("yaw", Math.Round(GlobalRotation.Y, 5).ToString());
+		dict.Add("roll", Math.Round(GlobalRotation.Z, 5).ToString());
 
 		string dict_to_str = Json.Stringify(dict);
 		byte[] bytes = Encoding.ASCII.GetBytes(dict_to_str);

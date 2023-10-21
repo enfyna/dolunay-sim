@@ -14,20 +14,22 @@ class M1():
 				cx = int(res['m10'] / res['m00'])
 				cy = int(res['m01'] / res['m00'])
 				if abs(int(bottom_img.shape[0] // 2  - cy)) > 10 or abs(int(bottom_img.shape[1] // 2  - cx)) > 10:
-					return int(bottom_img.shape[0] // 2  - cy) * 3, int(bottom_img.shape[1] // 2  - cx) * 3, 500, 0
+					return int(bottom_img.shape[0] // 2  - cy) * 5, int(bottom_img.shape[1] // 2  - cx) * 5, 500, 0
 				self.state = 2
 
 		if self.state == 2:
 			return 0, 0, -1000, 0
 
 		res = self.FindRedFromImage(front_img)
-		if res is None:
+		if res is None or res['m00'] < 20:
+			if self.state == 1:
+				return 1000, 0, 500, 0
 			return None
 		cx = int(res['m10'] / res['m00'])
 		cy = int(res['m01'] / res['m00'])
 		# Secilen c'nin momentinden merkezini hesapla
 		self.state = 1
-		return 750, 0, 500, int(front_img.shape[1] // 2  - cx) * 5
+		return 750, 0, 500, int(front_img.shape[1] // 2  - cx) * 10
 
 	def FindRedFromImage(self, image):
 		frame = cv2.resize(image, (200, 150))
