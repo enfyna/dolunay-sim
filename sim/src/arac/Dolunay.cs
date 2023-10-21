@@ -44,26 +44,22 @@ public partial class Dolunay : RigidBody3D
 		FrontCam.GlobalTransform = FrontCamPos.GlobalTransform;
 		BottomCam.GlobalTransform = BottomCamPos.GlobalTransform;
 
-		ApplyForce(GlobalTransform.Basis.X * x * SP);
+		ApplyForce(GlobalTransform.Basis.X * y * SP);
 
-		ApplyForce(GlobalTransform.Basis.Y * y * SP);
+		ApplyForce(GlobalTransform.Basis.Y * z * SP);
 
-		ApplyForce(GlobalTransform.Basis.Z * z * SP);
+		ApplyForce(GlobalTransform.Basis.Z * x * SP);
 
 		ApplyForce(GlobalTransform.Basis.X * r * SP, GlobalTransform.Basis.Z + GlobalTransform.Basis.X);
 	}
 
 	public void HareketEt(int x = 0, int y = 0, int z = 500, int r = 0){
-		this.x = x;
-		this.y = y;
-		this.r = r;
-
-        Math.Min(Math.Max(this.x, -1000), 1000);
-        Math.Min(Math.Max(this.y, -1000), 1000);
-        Math.Min(Math.Max(this.r, -1000), 1000);
+        this.x = Math.Min(Math.Max(x, -1000), 1000) * 5;
+        this.y = Math.Min(Math.Max(y, -1000), 1000) * 5;
+        this.r = Math.Min(Math.Max(r, -1000), 1000) * 1;
 
 		this.z = (z - 500) * 2;
-        Math.Min(Math.Max(this.z, -1000), 1000);
+        this.z = Math.Min(Math.Max(this.z, -1000), 1000) * 5;
 	}
 
 	private Dictionary<string, string> dict = new();
@@ -95,6 +91,10 @@ public partial class Dolunay : RigidBody3D
 		dict.Add("right_distance", right_distance.ToString());
 		dict.Add("left_distance", left_distance.ToString());
 		dict.Add("depth", depth.ToString());
+
+		dict.Add("pitch", GlobalRotation.X.ToString());
+		dict.Add("yaw", GlobalRotation.Y.ToString());
+		dict.Add("roll", GlobalRotation.Z.ToString());
 
 		string dict_to_str = Json.Stringify(dict);
 		byte[] bytes = Encoding.ASCII.GetBytes(dict_to_str);

@@ -28,6 +28,8 @@ class Dolunay():
     current_mode : str = 'ACRO'
 
     def __init__(self):
+        self.Distance = DistanceSensor(self)
+        
         self.connection = SimClient()
         self.sim_data = self.connection.recv()
         print(self.sim_data)
@@ -44,7 +46,7 @@ class Dolunay():
         self.state['inputs'] = [x, y, z, r]
 
         self.connection.SendData(self.state)
-        self.sim_data = self.connection.recv()
+        self.sim_data.update(self.connection.recv())
         return self.SUCCESS
 
     def set_arm(self, arm : bool = True, max_try : int = 7) -> int:
@@ -71,15 +73,15 @@ class Dolunay():
 
     def get_attitude(self) -> dict:
         data = {
-            "yaw": self.state['yaw'],
-            "roll": self.state['roll'],
-            "pitch": self.state['pitch']
+            "yaw": self.sim_data['yaw'],
+            "roll": self.sim_data['roll'],
+            "pitch": self.sim_data['pitch']
         }
         return data
 
     def get_pressure(self) -> dict:
         data = {
-            'pressure': self.state['depth']
+            'pressure': self.sim_data['depth']
         }
         return data
 
@@ -107,3 +109,26 @@ class Dolunay():
     # Bu özellikler simulasyona eklenmediği için şimdilik birşey yapmıyor
     def set_mod(self, mode : str = 'ALT_HOLD', max_try : int = 7) -> int:
         ...
+
+class DistanceSensor():
+    def __init__(self, master):
+        self.master = master
+
+    def getRightDistance(self):
+        data = self.master.sim_data['right_distance']
+        return data, 0.9
+
+    def getLeftDistance(self):
+        data = self.master.sim_data['left_distance']
+        return data, 0.9
+
+    def getDistance(self):
+        return self.master.sim_data['left_distance'], self.master.sim_data['right_distance']
+
+    def getDiffDis(self):
+        """
+        (-) değer sol sensor daha uzak
+        (+) değer sağ sensor daha uzak
+        """
+        diff = self.master.sim_data['right_distance'] - self.master.sim_data['left_distance']
+        return diff

@@ -49,6 +49,7 @@ public partial class Main : Node3D
 		GD.Print(connection.PutData(bytes));
 		
 	}
+	
     public override async void _Process(double delta)
     {
 		if(connection is null){

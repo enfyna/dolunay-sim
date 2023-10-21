@@ -47,6 +47,7 @@ BottomCam = NodePath("SubViewportContainer2/SubViewport/Bottom_Camera3D")
 
 [node name="TestBall" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 2.5)
+visible = false
 mesh = SubResource("SphereMesh_mof64")
 script = ExtResource("2_yyhxd")
 

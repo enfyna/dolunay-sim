@@ -39,10 +39,10 @@ class SimClient():
 					im_arr = frombuffer(im_bytes, dtype=uint8)
 					data['cam_2'] = imdecode(im_arr, flags=IMREAD_COLOR)
 
-				print(f'Received data : {data.keys()}')
+				# print(f'Received data : {data.keys()}')
 				return data
 			except:
-				print(f"Received buffer from Godot")
+				# print(f"Received buffer from Godot")
 				continue				
 
 	def SendData(self, data : dict):
