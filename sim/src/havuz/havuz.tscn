@@ -1,19 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://c8yb00mpkgt3q"]
+[gd_scene load_steps=3 format=3 uid="uid://c8yb00mpkgt3q"]
 
 [ext_resource type="ArrayMesh" uid="uid://d4bs03e1bkdnq" path="res://src/havuz/model/havuz.obj" id="1_vqoab"]
-[ext_resource type="Texture2D" uid="uid://b672fxlqvbdmu" path="res://src/havuz/tiles.jpg" id="2_7nfpm"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_04nge"]
-albedo_texture = ExtResource("2_7nfpm")
-ao_enabled = true
-backlight_enabled = true
-backlight = Color(0, 0.619608, 0.776471, 1)
-uv1_scale = Vector3(11, 11, 11)
-billboard_keep_scale = true
-grow_amount = -0.06
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nt4s3"]
-size = Vector3(10, 1, 10.4639)
+size = Vector3(50.7241, 1, 25.2378)
 
 [node name="Havuz" type="StaticBody3D"]
 axis_lock_linear_x = true
@@ -26,28 +16,27 @@ axis_lock_angular_z = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
 mesh = ExtResource("1_vqoab")
-surface_material_override/0 = SubResource("StandardMaterial3D_04nge")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.49008, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.53124, 0)
 shape = SubResource("BoxShape3D_nt4s3")
 
 [node name="CollisionShape3D6" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.509918, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.517407, 0)
 shape = SubResource("BoxShape3D_nt4s3")
 
 [node name="CollisionShape3D2" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.49886, -5.5342)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.49886, -12.9774)
 shape = SubResource("BoxShape3D_nt4s3")
 
 [node name="CollisionShape3D3" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.49886, 5.4658)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -2.49886, 12.975)
 shape = SubResource("BoxShape3D_nt4s3")
 
 [node name="CollisionShape3D4" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 5.5, -2.49886, -0.0342042)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, 25.4712, -2.49886, -0.0342042)
 shape = SubResource("BoxShape3D_nt4s3")
 
 [node name="CollisionShape3D5" type="CollisionShape3D" parent="."]
-transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -5.5, -2.49886, -0.0342047)
+transform = Transform3D(-4.37114e-08, -1, 4.37114e-08, 0, -4.37114e-08, -1, 1, -4.37114e-08, 1.91069e-15, -25.4712, -2.49886, -0.0342047)
 shape = SubResource("BoxShape3D_nt4s3")
