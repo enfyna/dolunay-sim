@@ -10,6 +10,7 @@ public partial class Main : Node3D
 	private Dolunay Arac;
 
 	public int SelectedMission;
+	private Label connectionInfo;
 
 	private TcpServer server = new();
 	private StreamPeerTcp connection;
@@ -17,11 +18,17 @@ public partial class Main : Node3D
 	private const int port = 12345;
 
 	public override void _Ready(){
+		connectionInfo = GetNode<Label>("%ConnectionInfo");
+
 		switch (SelectedMission)
 		{
 			case 1:
 				Node3D redCircle = GetNode<Node3D>("%RedCircle");
 				redCircle.Show();
+				break;
+			case 2:
+				break;
+			case 3:
 				break;
 		}
 	}
@@ -29,6 +36,7 @@ public partial class Main : Node3D
 	private int Connect(){
 		if(!server.IsListening()){
 			server.Listen(port, ip);
+			connectionInfo.Text = "Waiting for connection on " + ip + ":" + port;
 		}
 		if(!server.IsConnectionAvailable()){
 			return 1;
@@ -37,13 +45,13 @@ public partial class Main : Node3D
 		server.Stop();
 
 		if (connection.GetStatus() == StreamPeerTcp.Status.Connected){
-			GD.Print("Successfully connected to the server");
+			connectionInfo.Text = "Successfully connected";
 		}
 		else if(connection.GetStatus() == StreamPeerTcp.Status.Connecting){
-			GD.Print("Trying to connect to " + ip + " : " + port);
+			connectionInfo.Text = "Trying to connect to " + ip + " : " + port;
 		}
 		else{
-			GD.Print("Error connecting to " + ip + " : " + port);
+			connectionInfo.Text = "Error connecting to " + ip + " : " + port;
 		}
 		return 0;
 	}
@@ -55,7 +63,6 @@ public partial class Main : Node3D
 		byte[] bytes = await Arac.GetData();
 
 		connection.PutData(bytes);
-		
 	}
 	
     public override async void _Process(double delta)
@@ -73,17 +80,17 @@ public partial class Main : Node3D
 		if (byte_count <= 0) {
 			return;
 		}
-		GD.Print("Byte Count: ", byte_count);
+		// GD.Print("Byte Count: ", byte_count);
 
 		string str = connection.GetString(byte_count);
-		GD.Print("Received Data: ", str);
+		// GD.Print("Received Data: ", str);
 		try{
 			str = $"{{{str.Split('{')[1].Split('}')[0]}}}";
 		}
 		catch (Exception){
 			return;
 		}
-		GD.Print("Split Data: ", str);
+		// GD.Print("Split Data: ", str);
 
 		Dictionary data = (Dictionary)Json.ParseString(str);
 		if (data is null){
@@ -96,13 +103,23 @@ public partial class Main : Node3D
 		else{
 			Arac.HareketEt();
 		}
-		GD.Print("Success!");
+		// GD.Print("Success!");
 		sending_data = false;
     }
 
+	public void _on_exit_pressed(){
+		Menu menu = (Menu)ResourceLoader.Load<PackedScene>("res://src/menu/menu.tscn").Instantiate();
+
+		GetTree().Root.AddChild(menu);
+
+		QueueFree();
+	}
+
     public override void _ExitTree() {
-		connection.DisconnectFromHost();
-		connection.Dispose();
+		if(connection != null){
+			connection.DisconnectFromHost();
+			connection.Dispose();
+		}
 		server.Stop();
 		server.Dispose();
 	}

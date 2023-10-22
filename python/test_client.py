@@ -8,26 +8,17 @@ arac = Dolunay()
 arac.set_arm(True)
 
 arac.set_mod('ACRO')
-try:
-	# Gorev algoritmasını burada calıstıracagız
-	while True:
-		move = mission.FindRed(arac.sim_data['cam_1'], arac.sim_data['cam_2'])
+# Gorev algoritmasını burada calıstıracagız
+while True:
+	move = mission.FindRed(arac.sim_data['cam_1'], arac.sim_data['cam_2'])
 
-		data = arac.getData()
-		print("________>")
-		print(f"yaw: {data['yaw']} roll: {data['roll']} pitch: {data['pitch']} pressure: {data['pressure']}")
-		print(f"right distance: {arac.Distance.getRightDistance()} left distance: {arac.Distance.getLeftDistance()} dif: {arac.Distance.getDiffDis()}")
-		if move is not None:
-			print(f"mission move -> {move}")
-			arac.hareket_et(*move, 1, 0)
-		else:
-			print("search  move -> (0, -1000, 500, 0)")
-			arac.hareket_et(0, -1000, 500, 0, 1, 0)
-
-except KeyboardInterrupt:
-	# Ctrl - C basarak görevi bitir
-	pass
-
-arac.set_arm(0)
-
-arac.kapat()
+	data = arac.getData()
+	print("________>")
+	print(f"yaw: {data['yaw']} roll: {data['roll']} pitch: {data['pitch']} pressure: {data['pressure']}")
+	print(f"right distance: {arac.Distance.getRightDistance()} left distance: {arac.Distance.getLeftDistance()} dif: {arac.Distance.getDiffDis()}")
+	if move is not None:
+		# print(f"mission move -> {move}")
+		arac.hareket_et(*move, 1, 0)
+	else:
+		# print("search  move -> (0, -1000, 500, 0)")
+		arac.hareket_et(0, -1000, 500, 0, 1, 0)

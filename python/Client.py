@@ -18,23 +18,24 @@ class SimClient():
 	def recv(self):
 		buffer : str = ''
 		while True:
-			try:
-				recv = self.client_socket.recv(1024)
-			except:
-				sleep(0.05)
-				continue
+			recv = self.client_socket.recv(1024)
+			if recv == b'':
+				self.close()
+				raise ConnectionAbortedError()
 			recv = recv.decode('ASCII')
 			buffer += recv
 			try:
 				data : dict = loads(f"{{{buffer.split('{')[1].split('}')[0]}}}")
+				keys = data.keys()
+
 				buffer = ''
 
-				if 'cam_1' in data.keys():
+				if 'cam_1' in keys:
 					im_bytes = b64decode(data['cam_1'])
 					im_arr = frombuffer(im_bytes, dtype=uint8)
 					data['cam_1'] = imdecode(im_arr, flags=IMREAD_COLOR)
 				
-				if 'cam_2' in data.keys():
+				if 'cam_2' in keys:
 					im_bytes = b64decode(data['cam_2'])
 					im_arr = frombuffer(im_bytes, dtype=uint8)
 					data['cam_2'] = imdecode(im_arr, flags=IMREAD_COLOR)
