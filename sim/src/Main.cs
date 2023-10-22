@@ -17,7 +17,13 @@ public partial class Main : Node3D
 	private const int port = 12345;
 
 	public override void _Ready(){
-		
+		switch (SelectedMission)
+		{
+			case 1:
+				Node3D redCircle = GetNode<Node3D>("%RedCircle");
+				redCircle.Show();
+				break;
+		}
 	}
 
 	private int Connect(){
