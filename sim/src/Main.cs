@@ -9,13 +9,15 @@ public partial class Main : Node3D
 	[Export]
 	private Dolunay Arac;
 
+	public int SelectedMission;
+
 	private TcpServer server = new();
 	private StreamPeerTcp connection;
 	private const string ip = "127.0.0.1";
 	private const int port = 12345;
 
 	public override void _Ready(){
-		server.Listen(port, ip);
+		
 	}
 
 	private int Connect(){
@@ -46,25 +48,21 @@ public partial class Main : Node3D
 
 		byte[] bytes = await Arac.GetData();
 
-		GD.Print(connection.PutData(bytes));
+		connection.PutData(bytes);
 		
 	}
 	
     public override async void _Process(double delta)
     {
-		if(connection is null){
+		if(connection is null || connection.GetStatus() == StreamPeerTcp.Status.None){
 			Connect();
 			return;
 		}
-		GD.Print(connection.Poll());
 
-		if(connection.GetStatus() == StreamPeerTcp.Status.None){
-			Connect();
-			return;
-		}
 		if(!sending_data){
 			await SendData();
 		}
+		
 		int byte_count = connection.GetAvailableBytes();
 		if (byte_count <= 0) {
 			return;

@@ -12,11 +12,13 @@ material = SubResource("StandardMaterial3D_lyd0w")
 radius = 0.3
 height = 0.6
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bt4be"]
-albedo_color = Color(0, 0, 0, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_clhpf"]
+albedo_color = Color(0.141176, 0.141176, 0.141176, 1)
+metallic = 1.0
+roughness = 0.5
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_gjo1r"]
-material = SubResource("StandardMaterial3D_bt4be")
+material = SubResource("StandardMaterial3D_clhpf")
 top_radius = 0.1
 bottom_radius = 0.1
 height = 0.8

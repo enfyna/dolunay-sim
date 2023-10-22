@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="dolunay_sim"
-run/main_scene="res://src/sim.tscn"
+run/main_scene="res://src/menu/menu.tscn"
 config/features=PackedStringArray("4.1", "C#", "Forward Plus")
 run/max_fps=60
 config/icon="res://src/icon.svg"

@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Main.cs" id="1_doqqe"]
 [ext_resource type="PackedScene" uid="uid://c8yb00mpkgt3q" path="res://src/havuz/havuz.tscn" id="2_j7pvs"]
 [ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/arac.tscn" id="3_xhhib"]
-[ext_resource type="Script" path="res://src/RedCircle.cs" id="4_mehhx"]
+[ext_resource type="Script" path="res://src/objeler/RedCircle.cs" id="4_mehhx"]
 
 [sub_resource type="Gradient" id="Gradient_10678"]
 offsets = PackedFloat32Array(0, 0.827225)
@@ -62,6 +62,6 @@ sky_mode = 1
 environment = SubResource("Environment_0e5yg")
 
 [node name="RedCircle" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.97832, 6.00363, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02168, 6.00363, 0)
 mesh = SubResource("SphereMesh_5ugp0")
 script = ExtResource("4_mehhx")

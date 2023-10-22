@@ -32,7 +32,6 @@ class Dolunay():
         
         self.connection = SimClient()
         self.sim_data = self.connection.recv()
-        print(self.sim_data)
 
     def hareket_et(self, x, y, z, r, t = 1, i = 1) -> int:
         """
@@ -115,20 +114,21 @@ class DistanceSensor():
         self.master = master
 
     def getRightDistance(self):
-        data = self.master.sim_data['right_distance']
+        data = float(self.master.sim_data['right_distance'])
         return data, 0.9
 
     def getLeftDistance(self):
-        data = self.master.sim_data['left_distance']
+        data = float(self.master.sim_data['left_distance'])
         return data, 0.9
 
     def getDistance(self):
-        return self.master.sim_data['left_distance'], self.master.sim_data['right_distance']
+        return float(self.master.sim_data['left_distance']), float(self.master.sim_data['right_distance'])
 
     def getDiffDis(self):
         """
         (-) değer sol sensor daha uzak
         (+) değer sağ sensor daha uzak
         """
-        diff = self.master.sim_data['right_distance'] - self.master.sim_data['left_distance']
+        diff = float(self.master.sim_data['right_distance']) - float(self.master.sim_data['left_distance'])
+        diff = round(diff, 5)
         return diff
