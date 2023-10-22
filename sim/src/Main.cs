@@ -76,9 +76,26 @@ public partial class Main : Node3D
 			await SendData();
 		}
 		
+		Dictionary data = RecvData();
+
+		if(data != null && (int)data["is_armed"] == 1){
+			int[] inputs = (int[])data["inputs"];
+
+			connectionInfo.Text = inputs.Stringify();
+
+			Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
+		}
+		else{
+			Arac.HareketEt();
+		}
+		// GD.Print("Success!");
+		sending_data = false;
+    }
+
+	private Dictionary RecvData(){
 		int byte_count = connection.GetAvailableBytes();
 		if (byte_count <= 0) {
-			return;
+			return null;
 		}
 		// GD.Print("Byte Count: ", byte_count);
 
@@ -88,24 +105,11 @@ public partial class Main : Node3D
 			str = $"{{{str.Split('{')[1].Split('}')[0]}}}";
 		}
 		catch (Exception){
-			return;
+			return null;
 		}
 		// GD.Print("Split Data: ", str);
-
-		Dictionary data = (Dictionary)Json.ParseString(str);
-		if (data is null){
-			return;
-		}
-		if((int)data["is_armed"] == 1){
-			int[] inputs = (int[])data["inputs"];
-			Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
-		}
-		else{
-			Arac.HareketEt();
-		}
-		// GD.Print("Success!");
-		sending_data = false;
-    }
+		return (Dictionary)Json.ParseString(str);
+	}
 
 	public void _on_exit_pressed(){
 		Menu menu = (Menu)ResourceLoader.Load<PackedScene>("res://src/menu/menu.tscn").Instantiate();
