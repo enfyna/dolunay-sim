@@ -33,6 +33,8 @@ public partial class Dolunay : RigidBody3D
     [Export]
     private Camera3D BottomCam;
 
+	private bool is_armed = false;
+
 	private const float SP = 0.01f;
 
 	private float x = 0;
@@ -41,16 +43,19 @@ public partial class Dolunay : RigidBody3D
 	private float r = 0;
 
 	public override void _Process(double delta) {
+
 		FrontCam.GlobalTransform = FrontCamPos.GlobalTransform;
 		BottomCam.GlobalTransform = BottomCamPos.GlobalTransform;
 
-		ApplyForce(GlobalTransform.Basis.X * y * SP);
+		if(is_armed){
+			ApplyForce(GlobalTransform.Basis.X * y * SP);
 
-		ApplyForce(GlobalTransform.Basis.Y * z * SP);
+			ApplyForce(GlobalTransform.Basis.Y * z * SP);
 
-		ApplyForce(GlobalTransform.Basis.Z * x * SP);
+			ApplyForce(GlobalTransform.Basis.Z * x * SP);
 
-		ApplyForce(GlobalTransform.Basis.X * r * SP, GlobalTransform.Basis.Z + GlobalTransform.Basis.X);
+			ApplyForce(GlobalTransform.Basis.X * r * SP, GlobalTransform.Basis.Z + GlobalTransform.Basis.X);
+		}
 	}
 
 	public void HareketEt(int x = 0, int y = 0, int z = 500, int r = 0){
@@ -60,6 +65,10 @@ public partial class Dolunay : RigidBody3D
 
 		this.z = (z - 500) * 2;
         this.z = Math.Min(Math.Max(this.z, -1000), 1000) * 10;
+	}
+
+	public void SetArm(bool arm){
+		this.is_armed = arm;
 	}
 
 	private Dictionary<string, string> dict = new();
@@ -95,6 +104,8 @@ public partial class Dolunay : RigidBody3D
 		dict.Add("pitch", Math.Round(GlobalRotation.X, 5).ToString());
 		dict.Add("yaw", Math.Round(GlobalRotation.Y, 5).ToString());
 		dict.Add("roll", Math.Round(GlobalRotation.Z, 5).ToString());
+
+		dict.Add("is_armed", is_armed ? "1" : "0");
 
 		string dict_to_str = Json.Stringify(dict);
 		byte[] bytes = Encoding.ASCII.GetBytes(dict_to_str);

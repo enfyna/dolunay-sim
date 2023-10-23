@@ -78,16 +78,22 @@ public partial class Main : Node3D
 		
 		Dictionary data = RecvData();
 
-		if(data != null && (int)data["is_armed"] == 1){
-			int[] inputs = (int[])data["inputs"];
-
-			connectionInfo.Text = inputs.Stringify();
-
-			Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
-		}
-		else{
+		if(data == null){
 			Arac.HareketEt();
+			return;
 		}
+
+		if(data.ContainsKey("set_arm")){
+			int set_arm = (int)data["set_arm"];
+			Arac.SetArm(set_arm == 1);
+		}
+
+		int[] inputs = (int[])data["inputs"];
+
+		connectionInfo.Text = inputs.Stringify();
+
+		Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
+
 		// GD.Print("Success!");
 		sending_data = false;
     }

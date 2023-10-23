@@ -6,9 +6,9 @@ class Dolunay():
     SUCCESS = 0
     ERROR_OUT_OF_LOOP = 1
 
-    state : dict = {
-        'is_armed' : 0,
+    inp_state : dict = {
         'inputs' : [0, 0, 500, 0],
+        'set_arm' : 0,
     }
 
     sim_data : dict = {
@@ -20,6 +20,7 @@ class Dolunay():
         'yaw': 0,
         'roll': 0,
         'pitch': 0,
+        'is_armed' : 0,
     }
 
     # Bu özellik simulasyona eklenmediği için
@@ -42,9 +43,9 @@ class Dolunay():
         t- komutun kac defa gonderilecegi
         i- her komut arası beklenecek olan sure
         """
-        self.state['inputs'] = [x, y, z, r]
+        self.inp_state['inputs'] = [x, y, z, r]
 
-        self.connection.SendData(self.state)
+        self.connection.SendData(self.inp_state)
         try:
             self.sim_data.update(self.connection.recv())
         except:
@@ -53,16 +54,22 @@ class Dolunay():
         return self.SUCCESS
 
     def set_arm(self, arm : bool = True, max_try : int = 7) -> int:
-        if arm == self.state['is_armed']:
-            return self.SUCCESS
-        print(f"-> {'ARMED' if arm else 'DISARMED'}")
-        self.state['is_armed'] = 1 if arm else 0
-        return self.SUCCESS
+        self.inp_state['set_arm'] = 1 if arm else 0
+    
+        for _ in range(max_try):
+            self.connection.SendData(self.inp_state)
+            self.sim_data.update(self.connection.recv())
+
+            if int(self.sim_data['is_armed']) == arm:
+                self.inp_state.pop('set_arm')
+                print(f"-> {'ARMED' if arm else 'DISARMED'}")
+                return self.SUCCESS
+        return self.ERROR_OUT_OF_LOOP
 
     def get_mod(self) -> dict:
         data = {
             "mode": self.current_mode,
-            "arm": 'ARM' if self.state['is_armed'] else 'DISARM'
+            "arm": 'ARM' if self.sim_data['is_armed'] else 'DISARM'
         }
         return data
 
