@@ -46,11 +46,7 @@ class Dolunay():
         self.inp_state['inputs'] = [x, y, z, r]
 
         self.connection.SendData(self.inp_state)
-        try:
-            self.sim_data.update(self.connection.recv())
-        except:
-            self.kapat()
-            raise ConnectionAbortedError()
+        self.sim_data.update(self.connection.recv())
         return self.SUCCESS
 
     def set_arm(self, arm : bool = True, max_try : int = 7) -> int:

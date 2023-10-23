@@ -63,9 +63,11 @@ public partial class Main : Node3D
 		byte[] bytes = await Arac.GetData();
 
 		connection.PutData(bytes);
+
+		sending_data = false;
 	}
 	
-    public override async void _Process(double delta)
+    public override void _Process(double delta)
     {
 		if(connection is null || connection.GetStatus() == StreamPeerTcp.Status.None){
 			Connect();
@@ -73,7 +75,7 @@ public partial class Main : Node3D
 		}
 
 		if(!sending_data){
-			await SendData();
+			SendData();
 		}
 		
 		Dictionary data = RecvData();
@@ -95,7 +97,6 @@ public partial class Main : Node3D
 		Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
 
 		// GD.Print("Success!");
-		sending_data = false;
     }
 
 	private Dictionary RecvData(){
