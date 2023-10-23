@@ -14,8 +14,8 @@ public partial class Main : Node3D
 
 	private TcpServer server = new();
 	private StreamPeerTcp connection;
-	private const string ip = "127.0.0.1";
-	private const int port = 12345;
+	public string ip = "127.0.0.1";
+	public ushort port = 12345;
 
 	public override void _Ready(){
 		connectionInfo = GetNode<Label>("%ConnectionInfo");

@@ -5,6 +5,7 @@ public partial class Menu : Control
 {
 	private Button missionStart;
 	private Label missionInfo;
+	private LineEdit IPinput;
 
 	private Main missionScene;
 
@@ -17,6 +18,9 @@ public partial class Menu : Control
 
 		missionInfo = GetNode<Label>("%MissionInfo");
 		missionInfo.Hide();
+
+		IPinput = GetNode<LineEdit>("%IP");
+		IPinput.Hide();
 
 		missionScene = (Main)ResourceLoader.Load<PackedScene>("res://src/Sim.tscn").Instantiate();
 	}
@@ -41,11 +45,15 @@ public partial class Menu : Control
 		}
 
 		missionInfo.Show();
-
 		missionStart.Show();
+		IPinput.Show();
 	}
 
 	public void _on_start_mission_pressed(){
+		
+		missionScene.ip = IPinput.Text.Split(":")[0];
+		missionScene.port = Convert.ToUInt16(IPinput.Text.Split(":")[1]);
+		
 		missionScene.SelectedMission = selectedMission;
 
 		GetTree().Root.AddChild(missionScene);
