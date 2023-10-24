@@ -8,3 +8,4 @@ venv/
 frames/
 backup/
 *.blend1
+examples/

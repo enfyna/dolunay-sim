@@ -23,7 +23,7 @@ public partial class Main : Node3D
 		switch (SelectedMission)
 		{
 			case 1:
-				Node3D redCircle = GetNode<Node3D>("%RedCircle");
+				Node3D redCircle = GetNode<Node3D>("%G1_Objeleri");
 				redCircle.Show();
 				break;
 			case 2:

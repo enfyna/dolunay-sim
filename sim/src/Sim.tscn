@@ -1,9 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://4fvsdl7vq8m0"]
+[gd_scene load_steps=10 format=3 uid="uid://4fvsdl7vq8m0"]
 
 [ext_resource type="Script" path="res://src/Main.cs" id="1_w8rvx"]
 [ext_resource type="PackedScene" uid="uid://c8yb00mpkgt3q" path="res://src/havuz/havuz.tscn" id="2_qn33j"]
+[ext_resource type="PackedScene" uid="uid://wkrmiwlvkd3a" path="res://src/objeler/Gorev1_Objeleri/G1_objeleri.tscn" id="2_r4rsa"]
 [ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/arac.tscn" id="3_a8n3s"]
-[ext_resource type="Script" path="res://src/objeler/RedCircle.cs" id="4_krbm6"]
 
 [sub_resource type="Gradient" id="Gradient_10678"]
 offsets = PackedFloat32Array(0, 0.827225)
@@ -27,22 +27,17 @@ ssao_enabled = true
 ssil_enabled = true
 fog_light_color = Color(0, 0.27451, 0.329412, 1)
 fog_density = 0.02
-volumetric_fog_enabled = true
 volumetric_fog_density = 0.15
 volumetric_fog_albedo = Color(0, 0.313726, 0.313726, 1)
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2m3r8"]
-albedo_color = Color(0.905882, 0, 0, 1)
-
-[sub_resource type="SphereMesh" id="SphereMesh_5ugp0"]
-material = SubResource("StandardMaterial3D_2m3r8")
-radius = 1.2
-height = 0.001
-
 [node name="Sim" type="Node3D" node_paths=PackedStringArray("Arac")]
 script = ExtResource("1_w8rvx")
 Arac = NodePath("Arac")
+
+[node name="G1_Objeleri" parent="." instance=ExtResource("2_r4rsa")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 
 [node name="Havuz" parent="." instance=ExtResource("2_qn33j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
@@ -60,13 +55,6 @@ sky_mode = 1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0e5yg")
-
-[node name="RedCircle" type="MeshInstance3D" parent="."]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.02168, 6.00363, 0)
-visible = false
-mesh = SubResource("SphereMesh_5ugp0")
-script = ExtResource("4_krbm6")
 
 [node name="ConnectionInfo" type="Label" parent="."]
 unique_name_in_owner = true
