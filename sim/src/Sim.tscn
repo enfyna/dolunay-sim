@@ -38,6 +38,7 @@ Arac = NodePath("Arac")
 [node name="G1_Objeleri" parent="." instance=ExtResource("2_r4rsa")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+visible = false
 
 [node name="Havuz" parent="." instance=ExtResource("2_qn33j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
