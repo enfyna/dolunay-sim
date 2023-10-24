@@ -21,7 +21,7 @@ class M1():
 			return 0, 0, -1000, 0
 
 		res = self.FindRedFromImage(front_img)
-		if res is None or res['m00'] < 20:
+		if res is None:
 			if self.state == 1:
 				return 1000, 0, 500, 0
 			return None
@@ -47,9 +47,7 @@ class M1():
 
 		for c in contours:
 			M = cv2.moments(c)
-			# Moment hesabından c'nin alanını bul.
 
-			# Anlik karedeki piksel alani en buyuk c'yi bul
 			if M['m00'] > anlik_max_c_alani:
 				secilen_c , scm , anlik_max_c_alani = c , M , M['m00']
 				# Bulunan en buyuk c'yi anlik olarak kaydet

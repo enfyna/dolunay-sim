@@ -6,13 +6,9 @@ from time import sleep
 import socket
 
 class SimClient():
-
-	server_ip = "127.0.0.1"
-	server_port = 12345
-
 	def __init__(self):
 		self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-		self.client_socket.connect((self.server_ip, self.server_port))
+		self.client_socket.connect(("127.0.0.1", 12345))
 		print('Connected')
 
 	def recv(self):
@@ -27,8 +23,7 @@ class SimClient():
 			try:
 				data : dict = loads(f"{{{buffer.split('{')[1].split('}')[0]}}}")
 				keys = data.keys()
-
-				buffer = ''
+				# print(f'Received data : {keys}')
 
 				if 'cam_1' in keys:
 					im_bytes = b64decode(data['cam_1'])
@@ -40,7 +35,7 @@ class SimClient():
 					im_arr = frombuffer(im_bytes, dtype=uint8)
 					data['cam_2'] = imdecode(im_arr, flags=IMREAD_COLOR)
 
-				# print(f'Received data : {data.keys()}')
+				buffer = ''
 				return data
 			except:
 				# print(f"Received buffer from Godot")
