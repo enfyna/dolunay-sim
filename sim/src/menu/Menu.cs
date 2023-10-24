@@ -35,8 +35,8 @@ public partial class Menu : Control
 				missionStart.Disabled = false;
 				break;
 			case 2:
-				missionInfo.Text = "Mission 2\n\nPass inside all the yellow objects without crashing the vehicle.\n(Not implemented yet)\n";
-				missionStart.Disabled = true;
+				missionInfo.Text = "Mission 2\n\nPass inside all the yellow objects without crashing the vehicle.\n\n";
+				missionStart.Disabled = false;
 				break;
 			case 3:
 				missionInfo.Text = "Mission 3\n\nFind the pinger and crash the vehicle to it.\n(Not implemented yet)\n\n";

@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bs6fbf6fc7uw7"]
+
+[ext_resource type="ArrayMesh" uid="uid://dnisonepagcgh" path="res://src/objeler/Gorev2_Objeleri/BuyukCember/BuyukCember.obj" id="1_454tb"]
+[ext_resource type="ArrayMesh" uid="uid://bfjwr00grc1dy" path="res://src/objeler/Gorev2_Objeleri/KucukCember/KucukCember.obj" id="2_ahq0e"]
+
+[node name="G2_Objeleri" type="Node3D"]
+
+[node name="BuyukCember" type="MeshInstance3D" parent="."]
+mesh = ExtResource("1_454tb")
+
+[node name="KucukCember" type="MeshInstance3D" parent="."]
+mesh = ExtResource("2_ahq0e")

@@ -19,14 +19,19 @@ public partial class Main : Node3D
 
 	public override void _Ready(){
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
+		
+		Node3D g1 = GetNode<Node3D>("%G1_Objeleri");
+		Node3D g2 = GetNode<Node3D>("%G2_Objeleri");
 
 		switch (SelectedMission)
 		{
 			case 1:
-				Node3D redCircle = GetNode<Node3D>("%G1_Objeleri");
-				redCircle.Show();
+				g1.Show();
+				g2.QueueFree();
 				break;
 			case 2:
+				g1.QueueFree();
+				g2.Show();
 				break;
 			case 3:
 				break;

@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://4fvsdl7vq8m0"]
+[gd_scene load_steps=12 format=3 uid="uid://4fvsdl7vq8m0"]
 
 [ext_resource type="Script" path="res://src/Main.cs" id="1_w8rvx"]
 [ext_resource type="PackedScene" uid="uid://c8yb00mpkgt3q" path="res://src/havuz/havuz.tscn" id="2_qn33j"]
 [ext_resource type="PackedScene" uid="uid://wkrmiwlvkd3a" path="res://src/objeler/Gorev1_Objeleri/G1_objeleri.tscn" id="2_r4rsa"]
 [ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/arac.tscn" id="3_a8n3s"]
+[ext_resource type="PackedScene" uid="uid://bs6fbf6fc7uw7" path="res://src/objeler/Gorev2_Objeleri/G2_objeleri.tscn" id="3_kpjut"]
+[ext_resource type="Script" path="res://src/objeler/Randomizer.gd" id="4_8qpk2"]
 
 [sub_resource type="Gradient" id="Gradient_10678"]
 offsets = PackedFloat32Array(0, 0.827225)
@@ -39,6 +41,12 @@ Arac = NodePath("Arac")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 visible = false
+
+[node name="G2_Objeleri" parent="." instance=ExtResource("3_kpjut")]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
+visible = false
+script = ExtResource("4_8qpk2")
 
 [node name="Havuz" parent="." instance=ExtResource("2_qn33j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
