@@ -27,8 +27,9 @@ tonemap_mode = 2
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
+fog_enabled = true
 fog_light_color = Color(0, 0.27451, 0.329412, 1)
-fog_density = 0.02
+fog_density = 0.1
 volumetric_fog_density = 0.15
 volumetric_fog_albedo = Color(0, 0.313726, 0.313726, 1)
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
@@ -41,6 +42,7 @@ Arac = NodePath("Arac")
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 visible = false
+script = ExtResource("4_8qpk2")
 
 [node name="G2_Objeleri" parent="." instance=ExtResource("3_kpjut")]
 unique_name_in_owner = true

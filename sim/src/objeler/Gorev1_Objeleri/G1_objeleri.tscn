@@ -1,6 +1,5 @@
-[gd_scene load_steps=7 format=3 uid="uid://wkrmiwlvkd3a"]
+[gd_scene load_steps=6 format=3 uid="uid://wkrmiwlvkd3a"]
 
-[ext_resource type="Script" path="res://src/objeler/Randomizer.gd" id="1_wdlxa"]
 [ext_resource type="ArrayMesh" uid="uid://djn7gxnf307th" path="res://src/objeler/Gorev1_Objeleri/MaviDaire/MaviDaire.obj" id="1_xgwoa"]
 [ext_resource type="ArrayMesh" uid="uid://2rd6e8iukgs3" path="res://src/objeler/Gorev1_Objeleri/YesilDaire/YesilDaire.obj" id="2_3a8ic"]
 [ext_resource type="ArrayMesh" uid="uid://do81ftd0phavw" path="res://src/objeler/Gorev1_Objeleri/KırmızıDaire/KırmızıDaire.obj" id="3_gxpbs"]
@@ -8,7 +7,6 @@
 [ext_resource type="ArrayMesh" uid="uid://htqga5k80xon" path="res://src/objeler/Gorev1_Objeleri/TuruncuUcgen/TuruncuUcgen.obj" id="6_7dfro"]
 
 [node name="G1_Objeleri" type="Node3D"]
-script = ExtResource("1_wdlxa")
 
 [node name="BlueCircle" type="MeshInstance3D" parent="."]
 mesh = ExtResource("1_xgwoa")
