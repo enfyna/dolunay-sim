@@ -6,6 +6,7 @@ public partial class Menu : Control
 	private Button missionStart;
 	private Label missionInfo;
 	private LineEdit IPinput;
+	private CheckBox Fog;
 
 	private Main missionScene;
 
@@ -18,6 +19,9 @@ public partial class Menu : Control
 
 		missionInfo = GetNode<Label>("%MissionInfo");
 		missionInfo.Hide();
+
+		Fog = GetNode<CheckBox>("%Fog");
+		Fog.Hide();
 
 		IPinput = GetNode<LineEdit>("%IP");
 		IPinput.Hide();
@@ -47,6 +51,7 @@ public partial class Menu : Control
 		missionInfo.Show();
 		missionStart.Show();
 		IPinput.Show();
+		Fog.Show();
 	}
 
 	public void _on_start_mission_pressed(){
@@ -54,6 +59,8 @@ public partial class Menu : Control
 		missionScene.ip = IPinput.Text.Split(":")[0];
 		missionScene.port = Convert.ToUInt16(IPinput.Text.Split(":")[1]);
 		
+		missionScene.is_fog_enabled = Fog.ButtonPressed;
+
 		missionScene.SelectedMission = selectedMission;
 
 		GetTree().Root.AddChild(missionScene);

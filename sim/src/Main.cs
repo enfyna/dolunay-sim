@@ -17,9 +17,13 @@ public partial class Main : Node3D
 	public string ip = "127.0.0.1";
 	public ushort port = 12345;
 
+	public bool is_fog_enabled = true;
+
 	public override void _Ready(){
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
 		
+		GetNode<WorldEnvironment>("WorldEnvironment").Environment.FogEnabled = is_fog_enabled;
+
 		Node3D g1 = GetNode<Node3D>("%G1_Objeleri");
 		Node3D g2 = GetNode<Node3D>("%G2_Objeleri");
 
