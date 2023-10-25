@@ -1,7 +1,7 @@
 extends Node3D
 
 func _ready() -> void:
-	const MIN_DISTANCE_BETWEEN_OBJECTS = 2
+	const MIN_DISTANCE_BETWEEN_OBJECTS = 3
 
 	var occupied_positions = []
 
@@ -9,8 +9,8 @@ func _ready() -> void:
 		var new_position = Vector3()
 
 		while true:
-			new_position.x = randi_range(-20, 20)
-			new_position.z = randi_range(-10, 10)
+			new_position.x = randi_range(-5, 5)
+			new_position.z = randi_range(-5, 5)
 			new_position.y = global_position.y
 
 			var is_occupied = false
