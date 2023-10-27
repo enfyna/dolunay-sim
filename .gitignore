@@ -9,3 +9,5 @@ frames/
 backup/
 *.blend1
 examples/
+bin/
+linux/

@@ -9,8 +9,8 @@ func _ready() -> void:
 		var new_position = Vector3()
 
 		while true:
-			new_position.x = randi_range(-5, 5)
-			new_position.z = randi_range(-5, 5)
+			new_position.x = randi_range(-4, 4)
+			new_position.z = randi_range(-4, 4)
 			new_position.y = global_position.y
 
 			var is_occupied = false
