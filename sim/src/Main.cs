@@ -14,15 +14,22 @@ public partial class Main : Node3D
 
 	private TcpServer server = new();
 	private StreamPeerTcp connection;
-	public string ip = "127.0.0.1";
-	public ushort port = 12345;
+	private string ip = "127.0.0.1";
+	private ushort port = 12345;
 
-	public bool is_fog_enabled = true;
+	private bool is_fog_enabled = true;
 
 	public override void _Ready(){
-		connectionInfo = GetNode<Label>("%ConnectionInfo");
+		Global Globals = GetNode<Global>("/root/Global");
+
+		ip = Globals.ip;
+		port = Globals.port;
+
+		SelectedMission = Globals.SelectedMission;
+
+		GetNode<WorldEnvironment>("WorldEnvironment").Environment.FogEnabled = Globals.is_fog_enabled;
 		
-		GetNode<WorldEnvironment>("WorldEnvironment").Environment.FogEnabled = is_fog_enabled;
+		connectionInfo = GetNode<Label>("%ConnectionInfo");
 
 		Node3D g1 = GetNode<Node3D>("%G1_Objeleri");
 		Node3D g2 = GetNode<Node3D>("%G2_Objeleri");
@@ -75,9 +82,9 @@ public partial class Main : Node3D
 
 		sending_data = false;
 	}
-	
-    public override void _Process(double delta)
-    {
+
+	public override void _Process(double delta)
+	{
 		if(connection is null || connection.GetStatus() == StreamPeerTcp.Status.None){
 			Connect();
 			return;
@@ -86,7 +93,7 @@ public partial class Main : Node3D
 		if(!sending_data){
 			SendData();
 		}
-		
+
 		Dictionary data = RecvData();
 
 		if(data == null){
@@ -106,7 +113,7 @@ public partial class Main : Node3D
 		Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
 
 		// GD.Print("Success!");
-    }
+	}
 
 	private Dictionary RecvData(){
 		int byte_count = connection.GetAvailableBytes();
@@ -135,7 +142,7 @@ public partial class Main : Node3D
 		QueueFree();
 	}
 
-    public override void _ExitTree() {
+	public override void _ExitTree() {
 		if(connection != null){
 			connection.DisconnectFromHost();
 			connection.Dispose();
