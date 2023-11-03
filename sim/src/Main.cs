@@ -28,7 +28,7 @@ public partial class Main : Node3D
 		SelectedMission = Globals.SelectedMission;
 
 		GetNode<WorldEnvironment>("WorldEnvironment").Environment.FogEnabled = Globals.is_fog_enabled;
-		
+
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
 
 		Node3D g1 = GetNode<Node3D>("%G1_Objeleri");
@@ -74,7 +74,6 @@ public partial class Main : Node3D
 
 	private bool sending_data = false;
 	private async Task SendData(){
-		sending_data = true;
 
 		byte[] bytes = await Arac.GetData();
 
@@ -125,12 +124,15 @@ public partial class Main : Node3D
 
 		string str = connection.GetString(byte_count);
 		// GD.Print("Received Data: ", str);
-		try{
-			str = $"{{{str.Split('{')[1].Split('}')[0]}}}";
-		}
-		catch (Exception){
+
+		int startidx = str.IndexOf('{');
+		int endidx = str.IndexOf('}', startidx);
+		if(startidx == -1 && endidx == -1){
 			return null;
 		}
+		str = str.Substring(startidx, endidx - startidx + 1);
+
+		sending_data = true;
 		// GD.Print("Split Data: ", str);
 		return (Dictionary)Json.ParseString(str);
 	}
