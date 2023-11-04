@@ -57,25 +57,25 @@ public partial class Dolunay : RigidBody3D
         r_s = Mathf.Lerp(r_s, r, 0.7f);
         z_s = Mathf.Lerp(z_s, z, 0.7f);
 
-		ApplyForce(GlobalTransform.Basis.X * y_s * SP);
-		ApplyForce(GlobalTransform.Basis.Y * z_s * SP);
-		ApplyForce(GlobalTransform.Basis.Z * x_s * SP);
+		ApplyForce(GlobalTransform.Basis.X * y_s);
+		ApplyForce(GlobalTransform.Basis.Y * z_s);
+		ApplyForce(GlobalTransform.Basis.Z * x_s);
 
-		ApplyForce(GlobalTransform.Basis.X * r_s * SP, GlobalTransform.Basis.Z + GlobalTransform.Basis.X);
+		ApplyForce(GlobalTransform.Basis.X * r_s, GlobalTransform.Basis.Z + GlobalTransform.Basis.X);
 	}
 
 	public void HareketEt(int x = 0, int y = 0, int z = 500, int r = 0){
 		if(is_armed){
-			this.x = Math.Min(Math.Max(x, -1000), 1000) * 25;
-			this.y = Math.Min(Math.Max(y, -1000), 1000) * 25;
-			this.r = Math.Min(Math.Max(r, -1000), 1000) * 2;
+			this.x = Math.Min(Math.Max(x, -1000), 1000) * 25 * SP;
+			this.y = Math.Min(Math.Max(-y, -1000), 1000) * 25 * SP;
+			this.r = Math.Min(Math.Max(-r, -1000), 1000) * 2 * SP;
 
-			this.z = Math.Min(Math.Max((z - 500) * 2, -1000), 1000) * 5;
+			this.z = Math.Min(Math.Max((z - 500) * 2, -1000), 1000) * 5 * SP;
 		}
 		else{
 			this.x = 0;
 			this.y = 0;
-			this.z = 100; // try to fake vehicle going up when motors are disarmed
+			this.z = 10; // try to fake vehicle going up when motors are disarmed
 			this.r = 0;
 		}
     }
