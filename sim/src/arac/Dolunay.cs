@@ -7,31 +7,31 @@ using System.Threading.Tasks;
 public partial class Dolunay : RigidBody3D
 {
 	[Export]
-    public SubViewport FrontView;
-
-    [Export]
-    public SubViewport BottomView;
-
-    [Export]
-    public RayCast3D DepthSensor;
-    
-	[Export]
-    public RayCast3D RightDistance;
-    
-	[Export]
-    public RayCast3D LeftDistance;
+	public SubViewport FrontView;
 
 	[Export]
-    private Marker3D FrontCamPos;
-
-    [Export]
-    private Marker3D BottomCamPos;
+	public SubViewport BottomView;
 
 	[Export]
-    private Camera3D FrontCam;
+	public RayCast3D DepthSensor;
 
-    [Export]
-    private Camera3D BottomCam;
+	[Export]
+	public RayCast3D RightDistance;
+
+	[Export]
+	public RayCast3D LeftDistance;
+
+	[Export]
+	private Marker3D FrontCamPos;
+
+	[Export]
+	private Marker3D BottomCamPos;
+
+	[Export]
+	private Camera3D FrontCam;
+
+	[Export]
+	private Camera3D BottomCam;
 
 	private bool is_armed = false;
 
@@ -53,9 +53,9 @@ public partial class Dolunay : RigidBody3D
 		BottomCam.GlobalTransform = BottomCamPos.GlobalTransform;
 
 		x_s = Mathf.Lerp(x_s, x, 0.7f);
-        y_s = Mathf.Lerp(y_s, y, 0.7f);
-        r_s = Mathf.Lerp(r_s, r, 0.7f);
-        z_s = Mathf.Lerp(z_s, z, 0.7f);
+		y_s = Mathf.Lerp(y_s, y, 0.7f);
+		r_s = Mathf.Lerp(r_s, r, 0.7f);
+		z_s = Mathf.Lerp(z_s, z, 0.7f);
 
 		ApplyForce(GlobalTransform.Basis.X * y_s);
 		ApplyForce(GlobalTransform.Basis.Y * z_s);
@@ -78,7 +78,7 @@ public partial class Dolunay : RigidBody3D
 			this.z = 10; // try to fake vehicle going up when motors are disarmed
 			this.r = 0;
 		}
-    }
+	}
 
 	public void SetArm(bool arm){
 		this.is_armed = arm;
@@ -93,7 +93,7 @@ public partial class Dolunay : RigidBody3D
 
 		byte[] imageData = cam1.SavePngToBuffer();
 		byte[] image2Data = cam2.SavePngToBuffer();
-		
+
 		string imageDataBase64 = Convert.ToBase64String(imageData);
 		string image2DataBase64 = Convert.ToBase64String(image2Data);
 
