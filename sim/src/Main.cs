@@ -72,53 +72,35 @@ public partial class Main : Node3D
 		return 0;
 	}
 
+	private double time_passed_since_last_msg = 0;
+	private const double message_dt = 0.1d;
 	private bool sending_data = false;
 	private async Task SendData(){
-
 		byte[] bytes = await Arac.GetData();
 
 		connection.PutData(bytes);
-
-		sending_data = false;
 	}
 
-	public override void _Process(double delta)
+	public override async void _Process(double delta)
 	{
-		if(connection is null || connection.GetStatus() == StreamPeerTcp.Status.None){
+		if(connection is null || connection.GetStatus() != StreamPeerTcp.Status.Connected){
 			Arac.HareketEt();
 			Connect();
 			return;
 		}
-
-		if(!sending_data){
-			SendData();
+		time_passed_since_last_msg += delta;
+		if(time_passed_since_last_msg > message_dt){
+			time_passed_since_last_msg = 0;
+			await SendData();
 		}
-
-		Dictionary data = RecvData();
-
-		if(data == null){
-			Arac.HareketEt();
-			return;
-		}
-
-		if(data.ContainsKey("set_arm")){
-			int set_arm = (int)data["set_arm"];
-			Arac.SetArm(set_arm == 1);
-		}
-
-		int[] inputs = (int[])data["inputs"];
-
-		connectionInfo.Text = inputs.Stringify();
-
-		Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
-
-		// GD.Print("Success!");
+		
+		RecvData();
 	}
 
-	private Dictionary RecvData(){
+	private void RecvData(){
 		int byte_count = connection.GetAvailableBytes();
 		if (byte_count <= 0) {
-			return null;
+			return;
 		}
 		// GD.Print("Byte Count: ", byte_count);
 
@@ -126,15 +108,28 @@ public partial class Main : Node3D
 		// GD.Print("Received Data: ", str);
 
 		int startidx = str.IndexOf('{');
+		if(startidx == -1) return;
 		int endidx = str.IndexOf('}', startidx);
-		if(startidx == -1 && endidx == -1){
-			return null;
-		}
+		if(endidx == -1) return;
+
 		str = str.Substring(startidx, endidx - startidx + 1);
 
-		sending_data = true;
-		// GD.Print("Split Data: ", str);
-		return (Dictionary)Json.ParseString(str);
+		GD.Print("Split Data: ", str);
+		Dictionary data = (Dictionary)Json.ParseString(str);
+
+		if(data.ContainsKey("set_arm")){
+			int set_arm = (int)data["set_arm"];
+			Arac.SetArm(set_arm == 1);
+		}
+
+		if(data.ContainsKey("inputs")){
+			int[] inputs = (int[])data["inputs"];
+			connectionInfo.Text = inputs.Stringify();
+
+			Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
+		}
+
+		return;
 	}
 
 	public void _on_exit_pressed(){
