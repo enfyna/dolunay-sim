@@ -1,19 +1,41 @@
-[gd_scene load_steps=3 format=3 uid="uid://c8yb00mpkgt3q"]
+[gd_scene load_steps=7 format=3 uid="uid://c8yb00mpkgt3q"]
 
+[ext_resource type="Script" path="res://src/havuz/havuz.gd" id="1_67huf"]
 [ext_resource type="ArrayMesh" uid="uid://d4bs03e1bkdnq" path="res://src/havuz/model/havuz.obj" id="1_vqoab"]
+[ext_resource type="Texture2D" uid="uid://cghrm7qh4fkwf" path="res://src/havuz/normal_map.jpg" id="2_hvcg2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_id1uc"]
+transparency = 1
+cull_mode = 1
+albedo_color = Color(0.137255, 0.588235, 0.603922, 1)
+roughness = 0.0
+normal_enabled = true
+normal_scale = 0.1
+normal_texture = ExtResource("2_hvcg2")
+uv1_scale = Vector3(10, 1, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_75mdx"]
+material = SubResource("StandardMaterial3D_id1uc")
+size = Vector2(50, 25)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nt4s3"]
 size = Vector3(50.7241, 1, 25.2378)
 
-[node name="Havuz" type="StaticBody3D"]
+[node name="Havuz" type="StaticBody3D" node_paths=PackedStringArray("water")]
 axis_lock_linear_x = true
 axis_lock_linear_y = true
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
 axis_lock_angular_z = true
+script = ExtResource("1_67huf")
+water = NodePath("Su")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+[node name="Su" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+mesh = SubResource("PlaneMesh_75mdx")
+
+[node name="HavuzModeli" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
 mesh = ExtResource("1_vqoab")
 
