@@ -47,6 +47,26 @@ public partial class Dolunay : RigidBody3D
 	private float z_s = 0;
 	private float r_s = 0;
 
+	public override void _Ready(){
+		SubViewportContainer fp = FrontView.GetParent<SubViewportContainer>();
+		SubViewportContainer bp = BottomView.GetParent<SubViewportContainer>();
+		
+		Vector2 scale = fp.Scale;
+
+		int height = GetWindow().Size.Y / 2;
+		float ratio = height / fp.Size.Y;
+
+		scale.Y = ratio;
+		scale.X = ratio;
+
+		fp.Scale = scale;
+		bp.Scale = scale;
+
+		Vector2 b_pos = bp.Position;
+		b_pos.Y = height;
+		bp.Position = b_pos;
+	}
+
 	public override void _Process(double delta) {
 
 		FrontCam.GlobalTransform = FrontCamPos.GlobalTransform;
