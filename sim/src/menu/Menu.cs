@@ -6,6 +6,7 @@ public partial class Menu : Control
 	private Button missionStart;
 	private Label missionInfo;
 	private LineEdit IPinput;
+	private LineEdit CameraResolution;
 	private CheckBox Fog;
 
 	private Main missionScene;
@@ -30,6 +31,10 @@ public partial class Menu : Control
 		IPinput.Text = Globals.ip + ":" + Globals.port;
 		IPinput.Hide();
 
+		CameraResolution = GetNode<LineEdit>("%CameraResolution");
+		CameraResolution.Text = Globals.CameraResolution.ToString();
+		CameraResolution.Hide();
+
 		missionScene = (Main)ResourceLoader.Load<PackedScene>("res://src/Sim.tscn").Instantiate();
 	}
 
@@ -52,6 +57,7 @@ public partial class Menu : Control
 				break;
 		}
 
+		CameraResolution.Show();
 		missionInfo.Show();
 		missionStart.Show();
 		IPinput.Show();
@@ -64,6 +70,9 @@ public partial class Menu : Control
 
 		Globals.ip = IPinput.Text.Split(":")[0];
 		Globals.port = Convert.ToUInt16(IPinput.Text.Split(":")[1]);
+
+		int res = Int16.Parse(CameraResolution.Text);
+		Globals.CameraResolution = res;
 
 		Globals.is_fog_enabled = Fog.ButtonPressed;
 
