@@ -56,12 +56,27 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.3178, 8.46631, -11.244)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.609634, 0.15812, 0.776753, -0.734108, 0.482304, 0.477984, -0.299052, -0.861615, 0.410106, 14.1148, 13.4122, 0)
+transform = Transform3D(0.609973, 0.15733, 0.776647, -0.733825, 0.482033, 0.478692, -0.299057, -0.861911, 0.40948, 14.1148, 13.4122, 0)
 shadow_enabled = true
 shadow_bias = 0.0
 shadow_reverse_cull_face = true
 directional_shadow_blend_splits = true
-sky_mode = 1
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 4.54178e-08, -7.46992e-08, 1.7561e-09, 0.864722, 0.50225, 8.74051e-08, 0.50225, -0.864722, -15, 7, 0)
+light_energy = 0.4
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+directional_shadow_blend_splits = true
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.598395, 0.402404, -0.692817, 1.7561e-09, 0.864722, 0.50225, 0.801202, -0.300544, 0.517445, -15, 7, 0)
+light_energy = 0.4
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+directional_shadow_blend_splits = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_0e5yg")
