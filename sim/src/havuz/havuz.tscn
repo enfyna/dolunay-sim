@@ -5,14 +5,17 @@
 [ext_resource type="Texture2D" uid="uid://cghrm7qh4fkwf" path="res://src/havuz/normal_map.jpg" id="2_hvcg2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_id1uc"]
-transparency = 1
 cull_mode = 1
 albedo_color = Color(0.137255, 0.588235, 0.603922, 1)
 roughness = 0.0
 normal_enabled = true
-normal_scale = 0.1
+normal_scale = 0.07
 normal_texture = ExtResource("2_hvcg2")
+heightmap_enabled = true
+heightmap_texture = ExtResource("2_hvcg2")
+heightmap_flip_texture = true
 uv1_scale = Vector3(10, 1, 1)
+proximity_fade_distance = 0.0
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_75mdx"]
 material = SubResource("StandardMaterial3D_id1uc")
