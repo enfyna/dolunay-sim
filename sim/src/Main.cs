@@ -27,7 +27,9 @@ public partial class Main : Node3D
 
 		SelectedMission = Globals.SelectedMission;
 
-		GetNode<WorldEnvironment>("WorldEnvironment").Environment.FogEnabled = Globals.is_fog_enabled;
+		WorldEnvironment we = GetNode<WorldEnvironment>("WorldEnvironment"); 
+		we.Environment.FogEnabled = true;
+		we.Environment.FogDensity = Globals.fog_density;
 
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
 
@@ -114,7 +116,7 @@ public partial class Main : Node3D
 
 		str = str.Substring(startidx, endidx - startidx + 1);
 
-		GD.Print("Split Data: ", str);
+		// GD.Print("Split Data: ", str);
 		Dictionary data = (Dictionary)Json.ParseString(str);
 
 		if(data.ContainsKey("set_arm")){
