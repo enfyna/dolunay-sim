@@ -142,6 +142,14 @@ public partial class Main : Node3D
 		QueueFree();
 	}
 
+	public void _on_reset_pressed(){
+		Main main = (Main)ResourceLoader.Load<PackedScene>("res://src/Sim.tscn").Instantiate();
+
+		GetTree().Root.AddChild(main);
+
+		QueueFree();
+	}
+
 	public override void _ExitTree() {
 		if(connection != null){
 			connection.DisconnectFromHost();

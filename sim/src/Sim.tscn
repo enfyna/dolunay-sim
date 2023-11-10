@@ -27,8 +27,9 @@ tonemap_mode = 2
 ssr_enabled = true
 ssao_enabled = true
 ssil_enabled = true
-fog_light_color = Color(0, 0.27451, 0.329412, 1)
-fog_density = 0.1
+fog_enabled = true
+fog_light_color = Color(0, 0.254902, 0.309804, 1)
+fog_density = 0.0
 volumetric_fog_density = 0.15
 volumetric_fog_albedo = Color(0, 0.313726, 0.313726, 1)
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
@@ -103,9 +104,20 @@ vertical_alignment = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -8.0
-offset_bottom = 8.0
+offset_left = -60.0
+offset_bottom = 60.0
 grow_horizontal = 0
-text = " X "
+text = "Exit"
+
+[node name="Reset" type="Button" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -128.0
+offset_right = -68.0
+offset_bottom = 60.0
+grow_horizontal = 0
+text = "Reset"
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="Reset" to="." method="_on_reset_pressed"]
