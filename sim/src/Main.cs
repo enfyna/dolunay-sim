@@ -28,7 +28,7 @@ public partial class Main : Node3D
 		SelectedMission = Globals.SelectedMission;
 
 		WorldEnvironment we = GetNode<WorldEnvironment>("WorldEnvironment"); 
-		we.Environment.FogEnabled = true;
+		we.Environment.FogEnabled = Globals.fog_density > 0;
 		we.Environment.FogDensity = Globals.fog_density;
 
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
