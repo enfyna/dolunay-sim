@@ -48,25 +48,20 @@ public partial class Dolunay : RigidBody3D
 	private float r_s = 0;
 
 	public override void _Ready(){
-		Global Globals = GetNode<Global>("/root/Global");
-
-		Vector2 size = new();
-		size.X = Globals.CameraResolution;
-		size.Y = Globals.CameraResolution;
-
 		SubViewportContainer fp = FrontView.GetParent<SubViewportContainer>();
 		SubViewportContainer bp = BottomView.GetParent<SubViewportContainer>();
+		
+		Global Globals = GetNode<Global>("/root/Global");
+
+		Vector2 size = new(Globals.CameraResolution, Globals.CameraResolution);
 		
 		fp.Size = size;
 		bp.Size = size;
 
-		Vector2 scale = new();
-
 		int height = GetWindow().Size.Y / 2;
 		float ratio = height / size.Y;
 
-		scale.Y = ratio;
-		scale.X = ratio;
+		Vector2 scale = new(ratio, ratio);
 
 		fp.Scale = scale;
 		bp.Scale = scale;
