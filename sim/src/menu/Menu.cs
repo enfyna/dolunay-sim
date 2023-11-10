@@ -32,7 +32,7 @@ public partial class Menu : Control
 
 		missionScene = (Main)ResourceLoader.Load<PackedScene>("res://src/Sim.tscn").Instantiate();
 
-		missionInfo.GetParent<VBoxContainer>().Hide();
+		missionInfo.GetParent<VBoxContainer>().Modulate = Colors.Transparent;
 	}
 
 	public void _on_mission_select(int mission){
@@ -54,7 +54,7 @@ public partial class Menu : Control
 				break;
 		}
 
-		missionInfo.GetParent<VBoxContainer>().Show();
+		missionInfo.GetParent<VBoxContainer>().Modulate = Colors.White;
 	}
 
 	public void _on_start_mission_pressed(){
