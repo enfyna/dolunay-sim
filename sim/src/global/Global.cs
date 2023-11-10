@@ -9,5 +9,5 @@ public partial class Global : Node
 
 	public int SelectedMission = 0;
 
-	public float fog_density = 0.2f;
+	public float fog_density = 0.1f;
 }
