@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cghrm7qh4fkwf" path="res://src/havuz/normal_map.jpg" id="2_hvcg2"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_id1uc"]
+transparency = 1
 cull_mode = 1
 albedo_color = Color(0.137255, 0.588235, 0.603922, 1)
 roughness = 0.0
@@ -41,6 +42,29 @@ mesh = SubResource("PlaneMesh_75mdx")
 [node name="HavuzModeli" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
 mesh = ExtResource("1_vqoab")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.609973, 0.15733, 0.776647, -0.733825, 0.482033, 0.478692, -0.299057, -0.861911, 0.40948, 0, 3.25705, 0)
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+directional_shadow_blend_splits = true
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-1, 4.54178e-08, -7.46991e-08, 1.7561e-09, 0.864722, 0.50225, 8.74051e-08, 0.50225, -0.864722, 0, 3.25705, 0)
+light_energy = 0.4
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+directional_shadow_blend_splits = true
+
+[node name="DirectionalLight3D3" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.598395, 0.402404, -0.692817, 1.7561e-09, 0.864722, 0.502251, 0.801202, -0.300544, 0.517445, 0, 3.25705, 0)
+light_energy = 0.4
+shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+directional_shadow_blend_splits = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -4.53124, 0)

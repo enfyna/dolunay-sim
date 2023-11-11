@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://dnbnukkb0xnxs"]
+[gd_scene load_steps=3 format=3 uid="uid://dnbnukkb0xnxs"]
 
 [ext_resource type="Script" path="res://src/menu/Menu.cs" id="1_dbabk"]
+[ext_resource type="Texture2D" uid="uid://bv36wr0w1yqs8" path="res://src/logo.png" id="2_5x0xb"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -19,6 +20,18 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.00784314, 0.00784314, 0.00784314, 1)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -70.0
+offset_right = 70.0
+grow_vertical = 0
+texture = ExtResource("2_5x0xb")
+expand_mode = 4
+stretch_mode = 4
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
@@ -40,7 +53,7 @@ size_flags_horizontal = 3
 [node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 6
-text = "Dolunay Mission Simulator"
+text = "Dolunay® Mission Simulator"
 horizontal_alignment = 1
 vertical_alignment = 1
 
