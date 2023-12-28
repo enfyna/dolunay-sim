@@ -70,9 +70,12 @@ public partial class Menu : Control
 		Globals.CameraResolution = res;
 
 		Globals.SelectedMission = selectedMission;
-
-		GetTree().Root.AddChild(missionScene);
-
-		QueueFree();
+		
+		Tween tw = CreateTween();
+		tw.TweenProperty(this, "modulate", Colors.Black, 0.5);
+		tw.TweenCallback(Callable.From(() => {
+			GetTree().Root.AddChild(missionScene);
+			QueueFree();
+		})).SetDelay(0.5f);
 	}
 }

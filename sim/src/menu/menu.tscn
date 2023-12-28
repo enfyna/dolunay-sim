@@ -50,34 +50,67 @@ size_flags_stretch_ratio = 0.5
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer"]
+[node name="Title" type="Label" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 60)
 layout_mode = 2
-size_flags_vertical = 6
 text = "Dolunay® Mission Simulator"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Mission1" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="TabContainer" type="TabContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+tab_alignment = 1
+
+[node name="2023" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/TabContainer"]
+layout_mode = 2
+
+[node name="Mission1" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2023"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Mission 1
 "
 
-[node name="Mission2" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Mission2" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2023"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Mission 2
 "
 
-[node name="Mission3" type="Button" parent="HBoxContainer/VBoxContainer"]
+[node name="Mission3" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2023"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "Mission 3
 "
 
-[node name="Spacer" type="Control" parent="HBoxContainer/VBoxContainer"]
+[node name="2024" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Mission1" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
 layout_mode = 2
 size_flags_vertical = 3
+disabled = true
+text = "Mission 1 (provisional)
+"
+
+[node name="Mission2" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
+layout_mode = 2
+size_flags_vertical = 3
+disabled = true
+text = "Mission 2 (provisional)
+"
+
+[node name="Mission3" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
+layout_mode = 2
+size_flags_vertical = 3
+disabled = true
+text = "Mission 3 (provisional)
+"
+
+[node name="Spacer" type="Control" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 35)
+layout_mode = 2
 
 [node name="Spacer2" type="Control" parent="HBoxContainer"]
 layout_mode = 2
@@ -160,7 +193,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/Mission1" to="." method="_on_mission_select" binds= [1]]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/Mission2" to="." method="_on_mission_select" binds= [2]]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/Mission3" to="." method="_on_mission_select" binds= [3]]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2023/Mission1" to="." method="_on_mission_select" binds= [1]]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2023/Mission2" to="." method="_on_mission_select" binds= [2]]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2023/Mission3" to="." method="_on_mission_select" binds= [3]]
 [connection signal="pressed" from="HBoxContainer/Container/StartMission" to="." method="_on_start_mission_pressed"]

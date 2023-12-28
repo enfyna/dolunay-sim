@@ -1,5 +1,3 @@
-using System;
-using System.Threading;
 using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
@@ -19,7 +17,13 @@ public partial class Main : Node3D
 
 	private bool is_fog_enabled = true;
 
+	[Export]
+	private ColorRect fade_effect;
+
 	public override void _Ready(){
+
+		fade_effect.Modulate = Colors.Black;
+
 		Global Globals = GetNode<Global>("/root/Global");
 
 		ip = Globals.ip;
@@ -49,6 +53,9 @@ public partial class Main : Node3D
 			case 3:
 				break;
 		}
+
+		Tween tw = CreateTween();
+		tw.TweenProperty(fade_effect, "modulate", Colors.Transparent, 0.5);
 	}
 
 	private int Connect(){

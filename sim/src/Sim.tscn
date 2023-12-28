@@ -33,9 +33,21 @@ volumetric_fog_density = 0.15
 volumetric_fog_albedo = Color(0, 0.313726, 0.313726, 1)
 adjustment_color_correction = SubResource("GradientTexture1D_lgl1m")
 
-[node name="Sim" type="Node3D" node_paths=PackedStringArray("Arac")]
+[node name="Sim" type="Node3D" node_paths=PackedStringArray("Arac", "fade_effect")]
 script = ExtResource("1_w8rvx")
 Arac = NodePath("Arac")
+fade_effect = NodePath("FadeEffect")
+
+[node name="FadeEffect" type="ColorRect" parent="."]
+modulate = Color(1, 1, 1, 0)
+top_level = true
+z_index = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
 
 [node name="G1_Objeleri" parent="." instance=ExtResource("2_r4rsa")]
 unique_name_in_owner = true
