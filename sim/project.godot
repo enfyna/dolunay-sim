@@ -12,10 +12,10 @@ config_version=5
 
 config/name="dolunay_sim"
 run/main_scene="res://src/menu/menu.tscn"
-config/features=PackedStringArray("4.1", "C#", "Forward Plus")
+config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 run/max_fps=60
 boot_splash/image="res://src/splash.png"
-config/icon="res://src/icon.svg"
+config/icon="res://src/logo.png"
 
 [autoload]
 

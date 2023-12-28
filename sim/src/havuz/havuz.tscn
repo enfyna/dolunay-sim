@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c8yb00mpkgt3q"]
+[gd_scene load_steps=9 format=3 uid="uid://c8yb00mpkgt3q"]
 
 [ext_resource type="Script" path="res://src/havuz/havuz.gd" id="1_67huf"]
-[ext_resource type="ArrayMesh" uid="uid://d4bs03e1bkdnq" path="res://src/havuz/model/havuz.obj" id="1_vqoab"]
-[ext_resource type="Texture2D" uid="uid://cghrm7qh4fkwf" path="res://src/havuz/normal_map.jpg" id="2_hvcg2"]
+[ext_resource type="ArrayMesh" uid="uid://cn720dd61vrkc" path="res://src/havuz/model/havuz.obj" id="1_vqoab"]
+[ext_resource type="Texture2D" uid="uid://c6htmha52v2td" path="res://src/havuz/normal_map.jpg" id="2_hvcg2"]
+[ext_resource type="Texture2D" uid="uid://b2ct5go0k1ism" path="res://src/havuz/tiles.jpg" id="3_k8fky"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_id1uc"]
 transparency = 1
@@ -21,6 +22,9 @@ proximity_fade_distance = 0.0
 [sub_resource type="PlaneMesh" id="PlaneMesh_75mdx"]
 material = SubResource("StandardMaterial3D_id1uc")
 size = Vector2(50, 25)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4o03x"]
+albedo_texture = ExtResource("3_k8fky")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nt4s3"]
 size = Vector3(50.7241, 1, 25.2378)
@@ -41,6 +45,7 @@ mesh = SubResource("PlaneMesh_75mdx")
 
 [node name="HavuzModeli" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2.5, 0)
+material_override = SubResource("StandardMaterial3D_4o03x")
 mesh = ExtResource("1_vqoab")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]

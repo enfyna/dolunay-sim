@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dnbnukkb0xnxs"]
 
 [ext_resource type="Script" path="res://src/menu/Menu.cs" id="1_dbabk"]
-[ext_resource type="Texture2D" uid="uid://bv36wr0w1yqs8" path="res://src/logo.png" id="2_5x0xb"]
+[ext_resource type="Texture2D" uid="uid://roo83u2krw0q" path="res://src/logo.png" id="2_5x0xb"]
 
 [node name="Menu" type="Control"]
 layout_mode = 3
@@ -160,7 +160,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.5
 
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/Mission1" to="." method="_on_mission_select" binds= ["1"]]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/Mission1" to="." method="_on_mission_select" binds= [1]]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/Mission2" to="." method="_on_mission_select" binds= [2]]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/Mission3" to="." method="_on_mission_select" binds= [3]]
 [connection signal="pressed" from="HBoxContainer/Container/StartMission" to="." method="_on_start_mission_pressed"]
