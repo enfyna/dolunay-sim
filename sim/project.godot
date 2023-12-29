@@ -16,6 +16,7 @@ config/features=PackedStringArray("4.2", "C#", "Forward Plus")
 run/max_fps=60
 boot_splash/image="res://src/splash.png"
 config/icon="res://src/logo.png"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 

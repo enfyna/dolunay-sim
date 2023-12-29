@@ -83,25 +83,25 @@ size_flags_vertical = 3
 text = "Mission 3
 "
 
-[node name="2024" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/TabContainer"]
+[node name="2024" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Mission1" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
+[node name="Mission1" type="Button" parent="HBoxContainer/VBoxContainer/2024"]
 layout_mode = 2
 size_flags_vertical = 3
 disabled = true
 text = "Mission 1 (provisional)
 "
 
-[node name="Mission2" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
+[node name="Mission2" type="Button" parent="HBoxContainer/VBoxContainer/2024"]
 layout_mode = 2
 size_flags_vertical = 3
 disabled = true
 text = "Mission 2 (provisional)
 "
 
-[node name="Mission3" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
+[node name="Mission3" type="Button" parent="HBoxContainer/VBoxContainer/2024"]
 layout_mode = 2
 size_flags_vertical = 3
 disabled = true
