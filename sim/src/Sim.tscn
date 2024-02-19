@@ -23,9 +23,12 @@ sky_material = SubResource("ProceduralSkyMaterial_c2euf")
 [sub_resource type="Environment" id="Environment_0e5yg"]
 background_mode = 2
 sky = SubResource("Sky_y6ls1")
-tonemap_mode = 2
-ssr_enabled = true
+tonemap_mode = 3
+tonemap_exposure = 0.7
+tonemap_white = 10.0
 ssao_enabled = true
+ssao_radius = 2.5
+ssao_intensity = 16.0
 ssil_enabled = true
 fog_light_color = Color(0, 0.254902, 0.309804, 1)
 fog_density = 0.0
@@ -48,18 +51,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
-
-[node name="G1_Objeleri" parent="." instance=ExtResource("2_r4rsa")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-visible = false
-script = ExtResource("4_8qpk2")
-
-[node name="G2_Objeleri" parent="." instance=ExtResource("3_kpjut")]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
-visible = false
-script = ExtResource("4_8qpk2")
 
 [node name="Havuz" parent="." instance=ExtResource("2_qn33j")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 0)
@@ -106,6 +97,19 @@ offset_right = -68.0
 offset_bottom = 60.0
 grow_horizontal = 0
 text = "Reset"
+
+[node name="Missions" type="Node" parent="."]
+unique_name_in_owner = true
+
+[node name="Gorev_1" parent="Missions" instance=ExtResource("2_r4rsa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+visible = false
+script = ExtResource("4_8qpk2")
+
+[node name="Gorev_2" parent="Missions" instance=ExtResource("3_kpjut")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
+visible = false
+script = ExtResource("4_8qpk2")
 
 [connection signal="pressed" from="Exit" to="." method="_on_exit_pressed"]
 [connection signal="pressed" from="Reset" to="." method="_on_reset_pressed"]

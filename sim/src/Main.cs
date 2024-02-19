@@ -21,10 +21,14 @@ public partial class Main : Node3D
 	private ColorRect fade_effect;
 
 	public override void _Ready(){
-
+		
 		fade_effect.Modulate = Colors.Black;
-
+		
 		Global Globals = GetNode<Global>("/root/Global");
+
+        if(Globals.RandomYRot){
+            Arac.randomizeRotationY();		
+        }
 
 		ip = Globals.ip;
 		port = Globals.port;
@@ -37,23 +41,18 @@ public partial class Main : Node3D
 
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
 
-		Node3D g1 = GetNode<Node3D>("%G1_Objeleri");
-		Node3D g2 = GetNode<Node3D>("%G2_Objeleri");
+        Node mp = GetNode<Node>("%Missions");
+        for(int i = 0; i < mp.GetChildCount(); i++){
+            Node3D elm = mp.GetChild<Node3D>(i);
+            int id = elm.Name.ToString().Split("_")[1].ToInt();
 
-		switch (SelectedMission)
-		{
-			case 1:
-				g1.Show();
-				g2.QueueFree();
-				break;
-			case 2:
-				g1.QueueFree();
-				g2.Show();
-				break;
-			case 3:
-				break;
-		}
-
+            if(SelectedMission != id){
+                elm.QueueFree();
+                continue;
+            }
+            elm.Show();
+        }
+       
 		Tween tw = CreateTween();
 		tw.TweenProperty(fade_effect, "modulate", Colors.Transparent, 0.5);
 	}

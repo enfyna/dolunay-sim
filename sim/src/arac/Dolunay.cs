@@ -104,6 +104,12 @@ public partial class Dolunay : RigidBody3D
 		}
 	}
 
+	public void randomizeRotationY(){
+        Godot.Vector3 gr = this.GlobalRotation;
+        gr.Y = GD.Randf() * 360 - 720;
+        this.GlobalRotation = gr;
+	}
+
 	public void SetArm(bool arm){
 		this.is_armed = arm;
 	}

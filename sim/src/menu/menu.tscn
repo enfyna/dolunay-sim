@@ -134,6 +134,11 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="RandomY" type="CheckBox" parent="HBoxContainer/Container"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Randomize Y Rotation"
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="HBoxContainer/Container"]
 layout_mode = 2
 

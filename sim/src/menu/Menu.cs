@@ -8,6 +8,7 @@ public partial class Menu : Control
 	private LineEdit IPinput;
 	private LineEdit CameraResolution;
 	private HSlider Fog;
+    private CheckBox randomizeYRot;
 
 	private Main missionScene;
 
@@ -20,6 +21,9 @@ public partial class Menu : Control
 		missionInfo = GetNode<Label>("%MissionInfo");
 
 		Global Globals = GetNode<Global>("/root/Global");
+
+        randomizeYRot = GetNode<CheckBox>("%RandomY");
+        randomizeYRot.ButtonPressed = Globals.RandomYRot;
 
 		Fog = GetNode<HSlider>("%Fog");
 		Fog.Value = Globals.fog_density;
@@ -60,6 +64,8 @@ public partial class Menu : Control
 	public void _on_start_mission_pressed(){
 
 		Global Globals = GetNode<Global>("/root/Global");
+
+        Globals.RandomYRot = randomizeYRot.ButtonPressed;
 
 		Globals.ip = IPinput.Text.Split(":")[0];
 		Globals.port = Convert.ToUInt16(IPinput.Text.Split(":")[1]);
