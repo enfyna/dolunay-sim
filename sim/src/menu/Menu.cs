@@ -16,47 +16,45 @@ public partial class Menu : Control
 
 	public override void _Ready()
 	{
+        // load globals
+        Global Globals = GetNode<Global>("/root/Global");
+
+        // init nodes
 		missionStart = GetNode<Button>("%StartMission");
-
 		missionInfo = GetNode<Label>("%MissionInfo");
-
-		Global Globals = GetNode<Global>("/root/Global");
-
         randomizeYRot = GetNode<CheckBox>("%RandomY");
+        Fog = GetNode<HSlider>("%Fog");
+        IPinput = GetNode<LineEdit>("%IP");
+        CameraResolution = GetNode<LineEdit>("%CameraResolution");
+
         randomizeYRot.ButtonPressed = Globals.RandomYRot;
+        Fog.Value = Globals.fog_density;
+        IPinput.Text = Globals.ip + ":" + Globals.port;
+        CameraResolution.Text = Globals.CameraResolution.ToString();
 
-		Fog = GetNode<HSlider>("%Fog");
-		Fog.Value = Globals.fog_density;
+        // load mission scene
+        missionScene = (Main)ResourceLoader.Load<PackedScene>("res://src/Sim.tscn").Instantiate();
 
-		IPinput = GetNode<LineEdit>("%IP");
-		IPinput.Text = Globals.ip + ":" + Globals.port;
-
-		CameraResolution = GetNode<LineEdit>("%CameraResolution");
-		CameraResolution.Text = Globals.CameraResolution.ToString();
-
-		missionScene = (Main)ResourceLoader.Load<PackedScene>("res://src/Sim.tscn").Instantiate();
-
+        // hide mission settings
 		missionInfo.GetParent<VBoxContainer>().Modulate = Colors.Transparent;
 	}
 
 	public void _on_mission_select(int mission){
 		selectedMission = mission;
 
-		switch (mission)
-		{
-			case 1:
-				missionInfo.Text = "Mission 1\n\nFind the red circle in the pool and land the vehicle on it.\n\n";
-				missionStart.Disabled = false;
-				break;
-			case 2:
-				missionInfo.Text = "Mission 2\n\nPass inside all the yellow objects without crashing the vehicle.\n\n";
-				missionStart.Disabled = false;
-				break;
-			case 3:
-				missionInfo.Text = "Mission 3\n\nFind the pinger and crash the vehicle to it.\n(Not implemented yet)\n\n";
-				missionStart.Disabled = true;
-				break;
-		}
+        string[] info = {
+            // 2023
+            "Mission 1\n\nFind the red circle in the pool and land the vehicle on it.\n\n",
+            "Mission 2\n\nPass inside all the yellow objects without crashing the vehicle.\n\n",
+            "Mission 3\n\nFind the pinger and crash the vehicle to it.\n(Not implemented)\n\n",
+            // 2024
+            "Mission 1\n\n",
+            "Mission 2\n\n",
+            "Mission 3\n\n",
+        };
+
+        missionInfo.Text = info[mission - 1];
+        missionStart.Disabled = mission >= 3;
 
 		missionInfo.GetParent<VBoxContainer>().Modulate = Colors.White;
 	}

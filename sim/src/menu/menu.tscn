@@ -83,29 +83,25 @@ size_flags_vertical = 3
 text = "Mission 3
 "
 
-[node name="2024" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="2024" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/TabContainer"]
 visible = false
 layout_mode = 2
 
-[node name="Mission1" type="Button" parent="HBoxContainer/VBoxContainer/2024"]
+[node name="Mission1" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
 layout_mode = 2
 size_flags_vertical = 3
-disabled = true
-text = "Mission 1 (provisional)
+text = "Mission 1
 "
 
-[node name="Mission2" type="Button" parent="HBoxContainer/VBoxContainer/2024"]
+[node name="Mission2" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
 layout_mode = 2
 size_flags_vertical = 3
-disabled = true
-text = "Mission 2 (provisional)
-"
+text = "Mission 2"
 
-[node name="Mission3" type="Button" parent="HBoxContainer/VBoxContainer/2024"]
+[node name="Mission3" type="Button" parent="HBoxContainer/VBoxContainer/TabContainer/2024"]
 layout_mode = 2
 size_flags_vertical = 3
-disabled = true
-text = "Mission 3 (provisional)
+text = "Mission 3
 "
 
 [node name="Spacer" type="Control" parent="HBoxContainer/VBoxContainer"]
@@ -201,4 +197,7 @@ size_flags_stretch_ratio = 0.5
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2023/Mission1" to="." method="_on_mission_select" binds= [1]]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2023/Mission2" to="." method="_on_mission_select" binds= [2]]
 [connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2023/Mission3" to="." method="_on_mission_select" binds= [3]]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2024/Mission1" to="." method="_on_mission_select" binds= [4]]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2024/Mission2" to="." method="_on_mission_select" binds= [5]]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/TabContainer/2024/Mission3" to="." method="_on_mission_select" binds= [6]]
 [connection signal="pressed" from="HBoxContainer/Container/StartMission" to="." method="_on_start_mission_pressed"]
