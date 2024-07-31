@@ -101,12 +101,12 @@ text = "Reset"
 [node name="Missions" type="Node" parent="."]
 unique_name_in_owner = true
 
-[node name="Gorev_1" parent="Missions" instance=ExtResource("2_r4rsa")]
+[node name="2023_1" parent="Missions" instance=ExtResource("2_r4rsa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 visible = false
 script = ExtResource("4_8qpk2")
 
-[node name="Gorev_2" parent="Missions" instance=ExtResource("3_kpjut")]
+[node name="2023_2" parent="Missions" instance=ExtResource("3_kpjut")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, 0)
 visible = false
 script = ExtResource("4_8qpk2")

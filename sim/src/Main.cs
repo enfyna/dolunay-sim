@@ -4,10 +4,11 @@ using Godot.Collections;
 
 public partial class Main : Node3D
 {
-	[Export]
-	private Dolunay Arac;
+	[Export] private Dolunay Arac;
+	[Export] private ColorRect fade_effect;
 
-	public int SelectedMission;
+	private ushort SelectedMission;
+	private ushort SelectedYear;
 	private Label connectionInfo;
 
 	private TcpServer server = new();
@@ -17,23 +18,17 @@ public partial class Main : Node3D
 
 	private bool is_fog_enabled = true;
 
-	[Export]
-	private ColorRect fade_effect;
-
 	public override void _Ready(){
-		
 		fade_effect.Modulate = Colors.Black;
 		
 		Global Globals = GetNode<Global>("/root/Global");
 
-        if(Globals.RandomYRot){
-            Arac.randomizeRotationY();		
-        }
+		if(Globals.RandomYRot){
+			Arac.randomizeRotationY();		
+		}
 
 		ip = Globals.ip;
 		port = Globals.port;
-
-		SelectedMission = Globals.SelectedMission;
 
 		WorldEnvironment we = GetNode<WorldEnvironment>("WorldEnvironment"); 
 		we.Environment.FogEnabled = Globals.fog_density > 0;
@@ -41,18 +36,25 @@ public partial class Main : Node3D
 
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
 
-        Node mp = GetNode<Node>("%Missions");
-        for(int i = 0; i < mp.GetChildCount(); i++){
-            Node3D elm = mp.GetChild<Node3D>(i);
-            int id = elm.Name.ToString().Split("_")[1].ToInt();
+		SelectedMission = Globals.SelectedMission;
+		SelectedYear = Globals.SelectedYear;
 
-            if(SelectedMission != id){
+		Node mp = GetNode<Node>("%Missions");
+		for(int i = 0; i < mp.GetChildCount(); i++){
+			Node3D elm = mp.GetChild<Node3D>(i);
+            string[] m_date = elm.Name.ToString().Split("_");
+            ushort m_year = (ushort)m_date[0].ToInt();
+            ushort m_id = (ushort)m_date[1].ToInt();
+
+			if(SelectedYear == m_year && SelectedMission == m_id - 1){
+				elm.Show();
+			}
+            else{
+                elm.Hide();
                 elm.QueueFree();
-                continue;
             }
-            elm.Show();
-        }
-       
+		}
+	   
 		Tween tw = CreateTween();
 		tw.TweenProperty(fade_effect, "modulate", Colors.Transparent, 0.5);
 	}
