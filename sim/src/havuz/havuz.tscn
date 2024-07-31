@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=3 uid="uid://c8yb00mpkgt3q"]
 
 [ext_resource type="Script" path="res://src/havuz/havuz.gd" id="1_67huf"]
-[ext_resource type="ArrayMesh" uid="uid://cn720dd61vrkc" path="res://src/havuz/model/havuz.obj" id="1_vqoab"]
-[ext_resource type="Texture2D" uid="uid://c6htmha52v2td" path="res://src/havuz/normal_map.jpg" id="2_hvcg2"]
-[ext_resource type="Texture2D" uid="uid://b2ct5go0k1ism" path="res://src/havuz/tiles.jpg" id="3_k8fky"]
+[ext_resource type="ArrayMesh" uid="uid://che2i7u320h4e" path="res://src/havuz/model/havuz.obj" id="1_vqoab"]
+[ext_resource type="Texture2D" uid="uid://htr2fghnwltj" path="res://src/havuz/normal_map.jpg" id="2_hvcg2"]
+[ext_resource type="Texture2D" uid="uid://dfibpfpsnxm1t" path="res://src/havuz/tiles.jpg" id="3_k8fky"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_id1uc"]
 transparency = 1

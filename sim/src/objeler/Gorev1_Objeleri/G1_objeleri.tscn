@@ -1,10 +1,10 @@
 [gd_scene load_steps=6 format=3 uid="uid://wkrmiwlvkd3a"]
 
-[ext_resource type="ArrayMesh" uid="uid://djn7gxnf307th" path="res://src/objeler/Gorev1_Objeleri/MaviDaire/MaviDaire.obj" id="1_xgwoa"]
-[ext_resource type="ArrayMesh" uid="uid://2rd6e8iukgs3" path="res://src/objeler/Gorev1_Objeleri/YesilDaire/YesilDaire.obj" id="2_3a8ic"]
-[ext_resource type="ArrayMesh" uid="uid://do81ftd0phavw" path="res://src/objeler/Gorev1_Objeleri/KırmızıDaire/KırmızıDaire.obj" id="3_gxpbs"]
-[ext_resource type="ArrayMesh" uid="uid://c5tv7fmtdcvpp" path="res://src/objeler/Gorev1_Objeleri/KırmızıKare/KırmızıKare.obj" id="5_hpxmb"]
-[ext_resource type="ArrayMesh" uid="uid://htqga5k80xon" path="res://src/objeler/Gorev1_Objeleri/TuruncuUcgen/TuruncuUcgen.obj" id="6_7dfro"]
+[ext_resource type="ArrayMesh" uid="uid://dohj2cr1rx5v8" path="res://src/objeler/Gorev1_Objeleri/MaviDaire/MaviDaire.obj" id="1_xgwoa"]
+[ext_resource type="ArrayMesh" uid="uid://pxheaabskq8o" path="res://src/objeler/Gorev1_Objeleri/YesilDaire/YesilDaire.obj" id="2_3a8ic"]
+[ext_resource type="ArrayMesh" uid="uid://c6eboxh4toey7" path="res://src/objeler/Gorev1_Objeleri/KırmızıDaire/KırmızıDaire.obj" id="3_gxpbs"]
+[ext_resource type="ArrayMesh" uid="uid://b14hvlrers7jd" path="res://src/objeler/Gorev1_Objeleri/KırmızıKare/KırmızıKare.obj" id="5_hpxmb"]
+[ext_resource type="ArrayMesh" uid="uid://oqjr4u2emitp" path="res://src/objeler/Gorev1_Objeleri/TuruncuUcgen/TuruncuUcgen.obj" id="6_7dfro"]
 
 [node name="G1_Objeleri" type="Node3D"]
 
