@@ -1,22 +1,17 @@
-using System.Threading.Tasks;
 using Godot;
 using Godot.Collections;
+using System.Threading.Tasks;
 
 public partial class Main : Node3D
 {
 	[Export] private Dolunay Arac;
 	[Export] private ColorRect fade_effect;
 
-	private ushort SelectedMission;
-	private ushort SelectedYear;
-	private Label connectionInfo;
-
 	private TcpServer server = new();
 	private StreamPeerTcp connection;
 	private string ip = "127.0.0.1";
 	private ushort port = 12345;
-
-	private bool is_fog_enabled = true;
+	private Label connectionInfo;
 
 	public override void _Ready(){
 		fade_effect.Modulate = Colors.Black;
@@ -36,9 +31,6 @@ public partial class Main : Node3D
 
 		connectionInfo = GetNode<Label>("%ConnectionInfo");
 
-		SelectedMission = Globals.SelectedMission;
-		SelectedYear = Globals.SelectedYear;
-
 		Node mp = GetNode<Node>("%Missions");
 		for(int i = 0; i < mp.GetChildCount(); i++){
 			Node3D elm = mp.GetChild<Node3D>(i);
@@ -46,7 +38,7 @@ public partial class Main : Node3D
             ushort m_year = (ushort)m_date[0].ToInt();
             ushort m_id = (ushort)m_date[1].ToInt();
 
-			if(SelectedYear == m_year && SelectedMission == m_id - 1){
+			if(Globals.SelectedYear == m_year && Globals.SelectedMission == m_id - 1){
 				elm.Show();
 			}
             else{
@@ -54,7 +46,6 @@ public partial class Main : Node3D
                 elm.QueueFree();
             }
 		}
-	   
 		Tween tw = CreateTween();
 		tw.TweenProperty(fade_effect, "modulate", Colors.Transparent, 0.5);
 	}
@@ -72,14 +63,16 @@ public partial class Main : Node3D
 
 		if (connection.GetStatus() == StreamPeerTcp.Status.Connected){
 			connectionInfo.Text = "Successfully connected";
+            return 0;
 		}
 		else if(connection.GetStatus() == StreamPeerTcp.Status.Connecting){
 			connectionInfo.Text = "Trying to connect to " + ip + " : " + port;
+            return 2;
 		}
 		else{
 			connectionInfo.Text = "Error connecting to " + ip + " : " + port;
+            return 3;
 		}
-		return 0;
 	}
 
 	private double time_passed_since_last_msg = 0;
@@ -87,7 +80,6 @@ public partial class Main : Node3D
 	private bool sending_data = false;
 	private async Task SendData(){
 		byte[] bytes = await Arac.GetData();
-
 		connection.PutData(bytes);
 	}
 
@@ -98,13 +90,13 @@ public partial class Main : Node3D
 			Connect();
 			return;
 		}
+
 		time_passed_since_last_msg += delta;
 		if(time_passed_since_last_msg > message_dt){
 			time_passed_since_last_msg = 0;
 			await SendData();
+            RecvData();
 		}
-		
-		RecvData();
 	}
 
 	private void RecvData(){
@@ -138,8 +130,6 @@ public partial class Main : Node3D
 
 			Arac.HareketEt(inputs[0], inputs[1], inputs[2], inputs[3]);
 		}
-
-		return;
 	}
 
 	public void _on_exit_pressed(){
