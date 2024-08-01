@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/Main.cs" id="1_w8rvx"]
 [ext_resource type="PackedScene" uid="uid://c8yb00mpkgt3q" path="res://src/havuz/havuz.tscn" id="2_qn33j"]
 [ext_resource type="PackedScene" uid="uid://wkrmiwlvkd3a" path="res://src/objeler/Gorev1_Objeleri/G1_objeleri.tscn" id="2_r4rsa"]
-[ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/arac.tscn" id="3_a8n3s"]
+[ext_resource type="PackedScene" uid="uid://blqaog61dmcx8" path="res://src/arac/Dolunay.tscn" id="3_a8n3s"]
 [ext_resource type="PackedScene" uid="uid://bs6fbf6fc7uw7" path="res://src/objeler/Gorev2_Objeleri/G2_objeleri.tscn" id="3_kpjut"]
 [ext_resource type="Script" path="res://src/objeler/Randomizer.gd" id="4_8qpk2"]
 
