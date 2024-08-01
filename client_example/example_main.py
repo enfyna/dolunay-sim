@@ -1,5 +1,5 @@
 from client import Dolunay, DMS_Client
-from cv2 import imshow
+from cv2 import imshow, waitKey
 from time import sleep
 
 # To connect with the mission vehicle we will use the
@@ -14,37 +14,40 @@ vehicle.Pixhawk.set_arm(True)
 vehicle.Pixhawk.set_mod('ALT_HOLD')
 
 try:
-	while True:
-		# Camera
-		if vehicle.Camera.is_front_cam_open():
-			_, front_view = vehicle.Camera.get_front_cam()
-			# Images can be used in cv2 functions
-			imshow('front', front_view)
+    while True:
+        # Camera
+        if vehicle.Camera.is_front_cam_open():
+            _, front_view = vehicle.Camera.get_front_cam()
+            # Images can be used in cv2 functions
+            imshow('front', front_view)
+            waitKey(1);
 
-		if vehicle.Camera.is_bottom_cam_open():
-			_, bottom_view = vehicle.Camera.get_bottom_cam()
-			imshow('bottom', bottom_view)
+        if vehicle.Camera.is_bottom_cam_open():
+            _, bottom_view = vehicle.Camera.get_bottom_cam()
+            imshow('bottom', bottom_view)
+            waitKey(1);
 
-		# Distance
-		right, _ = vehicle.Distance.getRightDistance()
-		left, _ = vehicle.Distance.getLeftDistance()
-		# Or (same as above)
-		left, right = vehicle.Distance.getDistance()
+        # Distance
+        right, _ = vehicle.Distance.getRightDistance()
+        left, _ = vehicle.Distance.getLeftDistance()
+        # Or (same as above)
+        left, right = vehicle.Distance.getDistance()
 
-		right - left == vehicle.Distance.getDiffDis() # true
+        right - left == vehicle.Distance.getDiffDis() # true
 
-		# Pixhawk
-		vehicle.Pixhawk.get_attitude() # returns yaw, roll, pitch values in a dictionary
+        # Pixhawk
+        vehicle.Pixhawk.get_attitude() # returns yaw, roll, pitch values in a dictionary
 
-		ps_dict = vehicle.Pixhawk.get_pressure() # returns depth distance in a dictionary
-		depth = float(ps_dict['pressure'])
+        ps_dict = vehicle.Pixhawk.get_pressure() # returns depth distance in a dictionary
+        depth = float(ps_dict['pressure'])
 
-		vehicle.Pixhawk.hareket_et(250, 0, depth * 500, left - right * 10)
-		# Moves the vehicle according to your inputs. 
-		# !IMPORTANT:This function needs to be called every loop iteration 
-		# because it will update the vehicle data
+        print(vehicle.Distance.getDiffDis())
+        vehicle.Pixhawk.hareket_et(250, 0, depth * 500, vehicle.Distance.getDiffDis() * 10)
+        # Moves the vehicle according to your inputs. 
+        # !IMPORTANT:This function needs to be called every loop iteration 
+        # because it will update the vehicle data
 except KeyboardInterrupt:
-	'Ctrl + C To Exit the While Loop'
+    'Ctrl + C To Exit the While Loop'
 
 vehicle.Camera.release_cams()
 vehicle.Pixhawk.kapat()
