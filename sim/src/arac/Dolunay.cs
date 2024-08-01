@@ -6,32 +6,15 @@ using System.Threading.Tasks;
 
 public partial class Dolunay : RigidBody3D
 {
-	[Export]
-	public SubViewport FrontView;
-
-	[Export]
-	public SubViewport BottomView;
-
-	[Export]
-	public RayCast3D DepthSensor;
-
-	[Export]
-	public RayCast3D RightDistance;
-
-	[Export]
-	public RayCast3D LeftDistance;
-
-	[Export]
-	private Marker3D FrontCamPos;
-
-	[Export]
-	private Marker3D BottomCamPos;
-
-	[Export]
-	private Camera3D FrontCam;
-
-	[Export]
-	private Camera3D BottomCam;
+	[Export] public SubViewport FrontView;
+	[Export] public SubViewport BottomView;
+	[Export] public RayCast3D DepthSensor;
+	[Export] public RayCast3D RightDistance;
+	[Export] public RayCast3D LeftDistance;
+	[Export] private Marker3D FrontCamPos;
+	[Export] private Marker3D BottomCamPos;
+	[Export] private Camera3D FrontCam;
+	[Export] private Camera3D BottomCam;
 
 	private bool is_armed = false;
 
@@ -118,17 +101,14 @@ public partial class Dolunay : RigidBody3D
 	public async Task<byte[]> GetData(){
 		await ToSignal(GetTree(), "process_frame");
 
-		Image cam1 = FrontView.GetTexture().GetImage();
-		Image cam2 = BottomView.GetTexture().GetImage();
+		Image cam_1 = FrontView.GetTexture().GetImage();
+		Image cam_2 = BottomView.GetTexture().GetImage();
 
-		byte[] imageData = cam1.SavePngToBuffer();
-		byte[] image2Data = cam2.SavePngToBuffer();
+        byte[] buf_1 = cam_1.SavePngToBuffer();
+        byte[] buf_2 = cam_2.SavePngToBuffer();
 
-		string imageDataBase64 = Convert.ToBase64String(imageData);
-		string image2DataBase64 = Convert.ToBase64String(image2Data);
-
-		dict.Add("cam_1", imageDataBase64);
-		dict.Add("cam_2", image2DataBase64);
+        dict.Add("cam_1", buf_1.Join(","));
+        dict.Add("cam_2", buf_2.Join(","));
 
 		Vector3 origin = GlobalTransform.Origin;
 
