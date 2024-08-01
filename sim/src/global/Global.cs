@@ -5,7 +5,7 @@ public partial class Global : Node
 	public string ip = "127.0.0.1";
 	public ushort port = 12345;
 
-	public ushort CameraResolution = 300;
+	public ushort CameraResolution = 100;
 
 	public ushort SelectedMission = 0;
 	public ushort SelectedYear = 2024;
